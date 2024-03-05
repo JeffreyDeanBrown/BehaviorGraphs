@@ -22,7 +22,8 @@ library(snakecase)
 library(gridExtra)
 library(devtools)
 install_github(repo = 'https://github.com/JeffreyDeanBrown/BehaviorGraphs',
-               auth_token = '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')
+               auth_token = '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',
+               subdir = "pkgs")
 options(dplyr.summarise.inform = FALSE)
 
 spreadsheet_name <- c('Behavior Data 01-08-24.xlsx')
