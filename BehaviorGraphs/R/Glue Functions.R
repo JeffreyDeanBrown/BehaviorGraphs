@@ -177,7 +177,7 @@ generate_custom_graphs <- function(group_subtitle = "{.data$genotype_sex} (n = {
                                                        group_subtitle = {{group_subtitle}})
             print(glue(".\n.\n.\n.\n.\nDone! Now showing your selected preview graph ({graph_to_preview})\n Run print_custom_graphs() to print out all the graphs\n\n"))
             preview <- pluck(custom_graphs, graph_to_preview, 1)
-            return(preview)
+            grid.arrange(preview)
             i <- 1    #exits out of the while loop
           }
           

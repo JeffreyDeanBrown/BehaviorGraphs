@@ -58,13 +58,7 @@ print("Done with Setup")
 process_all_the_data(group_subtitle = "{.data$genotype} (n = {.data$n})",
                      indiv_subtitle = "Mouse \n {.data$number}, {.data$sex}, {.data$genotype}\n From cage: {.data$cage}")
 
-#previous system time: 
-# 22.062 seconds without individuals
-# 146.272 seconds with all individuals
 
-#system time with minor performance update:
-# 22.224 seconds without individuals
-# 120.563 seconds with all individuals
 ```
 
 #Make a custom graph
