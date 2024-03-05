@@ -4,4 +4,6 @@ Mouse Behavior version 6.0.Rproj
 PDFs
 .Rhistory
 .Rproj.user
-
+..gitignore.un~
+.ReadMe.txt.un~
+.gitignore~

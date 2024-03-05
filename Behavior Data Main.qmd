@@ -24,7 +24,7 @@ options(dplyr.summarise.inform = FALSE)
 
 spreadsheet_name <- c('Behavior Data 01-08-24.xlsx')
 
-setwd("/mnt/Windows_E/Syncthing/R_projects/Mouse Behavior/Mouse Behavior version 6.0")
+setwd("/mnt/Windows_E/Syncthing/R_projects/Mouse Behavior/mouse_behavior_graphs")
 
 #DESCRIPTION OF THE SOURCE FILES: 
 # these source files contain the functions called to process and plot the data 
