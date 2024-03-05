@@ -20,6 +20,8 @@ library(ggformula)
 library(vctrs) 
 library(snakecase) 
 library(gridExtra)
+library(devtools)
+install_github("JeffreyDeanBrown/BehaviorGraphs", subdir = "functions")
 options(dplyr.summarise.inform = FALSE)
 
 spreadsheet_name <- c('Behavior Data 01-08-24.xlsx')
