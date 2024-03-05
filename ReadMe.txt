@@ -1,4 +1,4 @@
 
 Mouse Behavior Graphs
 
-(need to fill this out)
+To use this project, simply download and use 'Behavior Data Main.qmd'
