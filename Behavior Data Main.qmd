@@ -23,31 +23,13 @@ library(gridExtra)
 library(devtools)
 install_github(repo = 'https://github.com/JeffreyDeanBrown/BehaviorGraphs',
                auth_token = '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',
-               subdir = "pkgs")
+               subdir = "BehaviorGraphs")
+library(BehaviorGraphs)
 options(dplyr.summarise.inform = FALSE)
 
 spreadsheet_name <- c('Behavior Data 01-08-24.xlsx')
 
 setwd("/mnt/Windows_E/Syncthing/R_projects/Mouse Behavior/mouse_behavior_graphs")
-
-#DESCRIPTION OF THE SOURCE FILES: 
-# these source files contain the functions called to process and plot the data 
-# Labeling_Functions has some parameters that can be edited, 
-# plot_group and plot_indiv Functions can change how the graphs look, 
-# and pdf_Functions can be edited to change the name of the output PDFs. 
-# 
-# Import_Functions and Glue_Functions are difficult to customize and should 
-# Be left alone unless you know what you are doing (or have a backup) 
-# 
-# These source files don't need to be opened to work, but they do need 
-# to be in your working directory when you run this program.
-
-source("Import Functions.R") 
-source("Labeling Functions.R") 
-source("plot_group Functions.R") 
-source("plot_indiv Functions.R") 
-source("Glue Functions.R") 
-source("pdf Functions.R")
 
 
 data <- get_the_data()  #Do not change the name of this 'data' tibble unless you also change Glue Functions.R
