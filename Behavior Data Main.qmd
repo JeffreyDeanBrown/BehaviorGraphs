@@ -1,9 +1,8 @@
 ---
-title: "Behavior Data Plots version 6"
-SourceFileVersion: 1.2
+title: "Behavior Data Plots version 7"
 author: Jeffrey Brown
 Created: 02-12-2024
-Last Updated: 03-02-2024
+Last Updated: 03-05-2024
 format: html
 editor: visual
 ---
@@ -22,7 +21,6 @@ library(snakecase)
 library(gridExtra)
 library(devtools)
 install_github(repo = 'https://github.com/JeffreyDeanBrown/BehaviorGraphs',
-               auth_token = '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',
                subdir = "BehaviorGraphs")
 library(BehaviorGraphs)
 options(dplyr.summarise.inform = FALSE)
