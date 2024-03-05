@@ -4,12 +4,16 @@ author: Jeffrey Brown
 Created: 02-12-2024
 Last Updated: 03-05-2024
 format: html
-editor: visual
+editor: source
+editor_options: 
+  chunk_output_type: console
 ---
+
+
 
 #setup
 
-```{r}
+```{r,echo=FALSE, message=FALSE, results='hide'}
 library(openxlsx) 
 library(dplyr) 
 library(tidyverse) 
@@ -34,9 +38,12 @@ data <- get_the_data()  #Do not change the name of this 'data' tibble unless you
 print("Done with Setup")
 ```
 
+
+
+
 #Make all of the graphs
 
-```{r}
+```{r, echo=FALSE, message=FALSE, results='hide'}
 # You can edit group_subtitle and indiv_subtitle  variables to change the
 # subtitles on your grouped graphs or individual mouse graphs, respectively
 # 
@@ -63,14 +70,10 @@ process_all_the_data(group_subtitle = "{.data$genotype} (n = {.data$n})",
 
 #Make a custom graph
 
-```{r}
+```{r, echo=FALSE, message=FALSE, results='hide'}
 # To generate a custom graph, you must run generate_custom_graphs()
 # To see what genotypes you can choose, run show_custom_options()
 
-show_custom_options()
-
-generate_custom_graphs(genotypes_to_plot = c("pFlp Homo (Male)", "OSKO Homo wSOD1M (Female)"),
-                       graph_to_preview = "weight_plot")
 # NOTE: generate_custom_graphs can also take custom subtitles by providing
 #       group_subtitle using the same syntax from process_all_the_data
 #
@@ -82,6 +85,12 @@ generate_custom_graphs(genotypes_to_plot = c("pFlp Homo (Male)", "OSKO Homo wSOD
 # Once you are happy with your custom graph, you can print all of the graphs
 # (i.e. grip strength, weight, rotarod, etc.) by running print_custom_graphs()
 # which will print a pdf "Custom Graphs.pdf" with your graphs
+
+
+show_custom_options()
+
+generate_custom_graphs(genotypes_to_plot = c("pFlp Homo (Male)", "OSKO Homo wSOD1M (Female)"),
+                       graph_to_preview = "grip_plot")
 
 print_custom_graphs()
 
