@@ -147,7 +147,7 @@ show_custom_options <- function(group_subtitle = "{.data$genotype} (n = {.data$n
                                 indiv_subtitle = "Mouse \n {.data$number}, {.data$sex}, {.data$genotype}\n From cage: {.data$cage}") {
         .data <- data
         .data %<>% label_the_data(indiv_subtitle = {{indiv_subtitle}})
-        genotypes <- toString(unique(.data$group_sex))
+        genotypes <- toString(unique(.data$genotype_sex))
         graphs <- "weight_plot, grip_plot, s_rotarod_plot, t_rotarod_plot, condition_plot"  #these were hand-copied from plot_the_group
         print(glue("THE GENOTYPES YOU CAN SELECT ARE:\n\t{genotypes} \nTHE GRAPHS YOU CAN PREVIEW ARE:\n\t{graphs}"))
 }
