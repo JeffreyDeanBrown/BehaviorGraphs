@@ -1,8 +1,8 @@
 ---
-title: "Behavior Data Plots version 7"
+title: "Behavior Data Plots version 7.0.0.1"
 author: Jeffrey Brown
 Created: 02-12-2024
-Last Updated: 03-05-2024
+Last Updated: 03-06-2024
 format: html
 editor: source
 editor_options: 
@@ -87,7 +87,8 @@ process_all_the_data(group_subtitle = "{.data$genotype} (n = {.data$n})",
 
 show_custom_options()
 
-generate_custom_graphs(genotypes_to_plot = c("pFlp Homo (Male)", "OSKO Homo wSOD1M (Female)"),
+generate_custom_graphs(genotypes_to_plot = c("pFlp Homo (Male)", "OSKO Homo wSOD1M (Female)"), #add as many
+                                                                                #as you want within the c()
                        graph_to_preview = "grip_plot")
 
 print_custom_graphs()
