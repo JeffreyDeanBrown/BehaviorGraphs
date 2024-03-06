@@ -87,11 +87,10 @@ process_all_the_data <- function(group_subtitle = "{.data$genotype} (n = {.data$
   
       .data <- data
       .data %<>% label_the_data(indiv_subtitle = {{indiv_subtitle}})
-    
-      i <- 0
+
       print("Do you want to print individual mice plots? [y/n] (it will be slower)")
       
-      while (i != 1){
+      repeat {
         var = readline()               #takes an input from the console
         
         #yes, the user wants to plot individuals:
@@ -108,7 +107,9 @@ process_all_the_data <- function(group_subtitle = "{.data$genotype} (n = {.data$
           indiv_ <<- .data %>% plot_the_indiv(subtitle = subtitle)
           suppressWarnings(print_with_indiv())
           
-          i <- 1    #exits out of the while loop
+          print("Done!")
+          
+          break
         }
         
         #no, the user does not want to plot individuals:
@@ -126,14 +127,17 @@ process_all_the_data <- function(group_subtitle = "{.data$genotype} (n = {.data$
                                                       pdf_group = all,
                                                       group_subtitle = {{group_subtitle}})
           suppressWarnings(print_without_indiv())
-          i <- 1    #exits out of the while loop
+          
+          print("Done!")
+          
+          break
         }
         
         #the user did not enter yes (y) or no (n)
         else {print("ERROR: please enter a 'y' or a 'n'")
         #then restarts the while loop
       }
-      print("Done!")
+      }
 }
 
 
@@ -163,10 +167,9 @@ generate_custom_graphs <- function(group_subtitle = "{.data$genotype_sex} (n = {
                     n_mice <- unique(custom_tibble$id) %>% length
                     n_genes <- unique(custom_tibble$genotype) %>% length
                     
-                    i <- 0
                     print(glue("Creating the graphs for {n_genes} groups, correct? [y/n] ({n_mice} mice total)"))
                     
-                    while (i != 1){
+                    repeat {
                       var = readline()               #takes an input from the console
                       
     #yes, the setup is correct:
@@ -178,19 +181,20 @@ generate_custom_graphs <- function(group_subtitle = "{.data$genotype_sex} (n = {
             print(glue(".\n.\n.\n.\n.\nDone! Now showing your selected preview graph ({graph_to_preview})\n Run print_custom_graphs() to print out all the graphs\n\n"))
             preview <- pluck(custom_graphs, graph_to_preview, 1)
             grid.arrange(preview)
-            i <- 1    #exits out of the while loop
+            break
           }
           
    #no, the user made a mistake:
-          if (var == "n") {  
+          else if (var == "n") {  
             print("Please run show_custom_options() and double check your genotypes_to_plot variable")
-            i <- 1    #exits out of the while loop
+            break
           }
           
           #the user did not enter yes (y) or no (n)
-          if (all(var != "y", var != "n")) print("ERROR: please enter a 'y' or a 'n'")
+          else {print("ERROR: please enter a 'y' or a 'n'")
           #then restarts the while loop
         }
+                    }
 }
 
 #-----------------------------------------------------------------------------------------------------------
