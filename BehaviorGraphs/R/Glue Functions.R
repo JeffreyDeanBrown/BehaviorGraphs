@@ -107,7 +107,7 @@ process_all_the_data <- function(group_subtitle = "{.data$genotype} (n = {.data$
           print("making graphs for all individual mice...")
           indiv_ <<- .data %>% plot_the_indiv(subtitle = subtitle)
           suppressWarnings(print_with_indiv())
-          
+          print("Done!")
           i <- 1    #exits out of the while loop
         }
         
@@ -126,14 +126,15 @@ process_all_the_data <- function(group_subtitle = "{.data$genotype} (n = {.data$
                                                       pdf_group = all,
                                                       group_subtitle = {{group_subtitle}})
           suppressWarnings(print_without_indiv())
+          print("Done!")
           i <- 1    #exits out of the while loop
         }
         
         #the user did not enter yes (y) or no (n)
-        else {print("ERROR: please enter a 'y' or a 'n'")
-        #then restarts the while loop
+        else if {
+          print("ERROR: please enter a 'y' or a 'n'")
       }
-      print("Done!")
+      
 }
 }
 
