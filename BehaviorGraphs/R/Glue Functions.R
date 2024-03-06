@@ -149,7 +149,7 @@ show_custom_options <- function(group_subtitle = "{.data$genotype} (n = {.data$n
         .data %<>% label_the_data(indiv_subtitle = {{indiv_subtitle}})
         genotypes <- toString(unique(.data$genotype_sex))
         graphs <- "weight_plot, grip_plot, s_rotarod_plot, t_rotarod_plot, condition_plot"  #these were hand-copied from plot_the_group
-        print(glue("THE GENOTYPES YOU CAN SELECT ARE:\n\t{genotypes} \nTHE GRAPHS YOU CAN PREVIEW ARE:\n\t{graphs}"))
+        print(glue("THE GENOTYPES YOU CAN SELECT ARE:\n\n\t{genotypes} \n\nTHE GRAPHS YOU CAN PREVIEW ARE:\n\n\t{graphs}"))
 }
 
 #---------------------------------------------------------------------------------------------
