@@ -131,7 +131,7 @@ process_all_the_data <- function(group_subtitle = "{.data$genotype} (n = {.data$
         }
         
         #the user did not enter yes (y) or no (n)
-        else if {
+        else {
           print("ERROR: please enter a 'y' or a 'n'")
       }
       
