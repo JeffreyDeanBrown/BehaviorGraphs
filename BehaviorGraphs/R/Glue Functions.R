@@ -135,7 +135,7 @@ process_all_the_data <- function(group_subtitle = "{.data$genotype} (n = {.data$
       }
       print("Done!")
 }
-
+}
 
 #-------------------------------------------------------------------------------------------
 
@@ -192,6 +192,3 @@ generate_custom_graphs <- function(group_subtitle = "{.data$genotype_sex} (n = {
           #then restarts the while loop
         }
 }
-
-#-----------------------------------------------------------------------------------------------------------
-
