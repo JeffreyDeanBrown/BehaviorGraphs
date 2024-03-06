@@ -112,7 +112,7 @@ process_all_the_data <- function(group_subtitle = "{.data$genotype} (n = {.data$
         }
         
         #no, the user does not want to plot individuals:
-        if (var == "n") {  
+        else if (var == "n") {  
           print("making graphs by genotype...")
           genotype_group <<- .data %>% group_and_plot(data_group = group_sex,
                                                              pdf_group = group,
@@ -130,7 +130,7 @@ process_all_the_data <- function(group_subtitle = "{.data$genotype} (n = {.data$
         }
         
         #the user did not enter yes (y) or no (n)
-        if (all(var != "y", var != "n")) print("ERROR: please enter a 'y' or a 'n'")
+        else {print("ERROR: please enter a 'y' or a 'n'")
         #then restarts the while loop
       }
       print("Done!")
