@@ -24,6 +24,9 @@ print_with_indiv <- function() {
   print("Printing graphs...")
   dir.create("PDFs")
 
+#setup the filename for the genotype of the day
+name_of_the_day <- capture.output(cat("PDFs/",genotype_of_the_day,".pdf",sep=""))
+  
 #Export PDFs by genotype (or by sod1 group) followed by all individual mice graphs
 
 #pFlp
@@ -57,7 +60,7 @@ indiv_$s_rotarod_plot[which(str_detect(indiv_$group,genotype_of_the_day))]      
 indiv_$s_rotarod_plot[which(str_detect(indiv_$group,genotype_of_the_day))]                 ,
 indiv_$condition_plot[which(str_detect(indiv_$group,genotype_of_the_day))]) 
 
-ggsave(filename = "PDFs/OSKO.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
+ggsave(filename = name_of_the_day, plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
        width = 7, height = 7)
 
 
@@ -121,7 +124,7 @@ print_without_indiv <- function(){
   genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
   genotype_group$condition_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]) 
   
-  ggsave(filename = "PDFs/OSKO.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
+  ggsave(filename = name_of_the_day, plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
          width = 7, height = 7)
   
   
