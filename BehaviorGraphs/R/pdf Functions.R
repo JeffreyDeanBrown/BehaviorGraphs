@@ -20,12 +20,16 @@
 # source files
 
 #----------------------------------------------------------------------------------
+
+#setup the filename for the genotype of the day
+name_of_the_day <- capture.output(cat("PDFs/",genotype_of_the_day,".pdf",sep=""))
+cat(name_of_the_day)
+
+#----------------------------------------------------------------------------------
 print_with_indiv <- function() {
   print("Printing graphs...")
   dir.create("PDFs")
 
-#setup the filename for the genotype of the day
-name_of_the_day <- capture.output(cat("PDFs/",genotype_of_the_day,".pdf",sep=""))
   
 #Export PDFs by genotype (or by sod1 group) followed by all individual mice graphs
 
