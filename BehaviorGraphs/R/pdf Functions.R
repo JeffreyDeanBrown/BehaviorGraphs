@@ -20,7 +20,7 @@
 # source files
 
 #----------------------------------------------------------------------------------
-print_with_indiv <- function(filename_of_the_day) {
+print_with_indiv <- function() {
   print("Printing graphs...")
   dir.create("PDFs")
 
@@ -98,7 +98,7 @@ ggsave(filename = "PDFs/wildtype SOD1.pdf", plot = marrangeGrob(grobs = list, nr
 
 
 #-----------------------------------------------------------------------------------------
-print_without_indiv <- function(filename_of_the_day){
+print_without_indiv <- function(){
   #Export PDFs by genotype (or by sod1 group) followed by all individual mice graphs
   print("Printing graphs...")
   dir.create("PDFs")
