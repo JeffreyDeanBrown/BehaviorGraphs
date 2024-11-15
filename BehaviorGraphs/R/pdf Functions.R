@@ -44,18 +44,18 @@ ggsave(filename = "PDFs/pFlp.pdf", plot = marrangeGrob(grobs = list, nrow = 1, n
        width = 7, height = 7)          
 
 
-#OSKO
+#genotype to be graphed today
 
-list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,"OSKO"))]      ,
-genotype_group$weight_plot[which(str_detect(genotype_group$group,"OSKO"))]    ,
-genotype_group$s_rotarod_plot[which(str_detect(genotype_group$group,"OSKO"))] ,
-genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,"OSKO"))] ,
-genotype_group$condition_plot[which(str_detect(genotype_group$group,"OSKO"))] ,
-indiv_$grip_plot[which(str_detect(indiv_$group,"OSKO"))]                      ,
-indiv_$weight_plot[which(str_detect(indiv_$group,"OSKO"))]                    ,
-indiv_$s_rotarod_plot[which(str_detect(indiv_$group,"OSKO"))]                 ,
-indiv_$s_rotarod_plot[which(str_detect(indiv_$group,"OSKO"))]                 ,
-indiv_$condition_plot[which(str_detect(indiv_$group,"OSKO"))]) 
+list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]      ,
+genotype_group$weight_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]    ,
+genotype_group$s_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
+genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
+genotype_group$condition_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
+indiv_$grip_plot[which(str_detect(indiv_$group,genotype_of_the_day))]                      ,
+indiv_$weight_plot[which(str_detect(indiv_$group,genotype_of_the_day))]                    ,
+indiv_$s_rotarod_plot[which(str_detect(indiv_$group,genotype_of_the_day))]                 ,
+indiv_$s_rotarod_plot[which(str_detect(indiv_$group,genotype_of_the_day))]                 ,
+indiv_$condition_plot[which(str_detect(indiv_$group,genotype_of_the_day))]) 
 
 ggsave(filename = "PDFs/OSKO.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
        width = 7, height = 7)
@@ -113,13 +113,13 @@ print_without_indiv <- function(){
   ggsave(filename = "PDFs/pFlp.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
          width = 7, height = 7)
   
-  #OSKO
+  #genotype to be graphed today
   
-  list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,"OSKO"))]      ,
-  genotype_group$weight_plot[which(str_detect(genotype_group$group,"OSKO"))]    ,
-  genotype_group$s_rotarod_plot[which(str_detect(genotype_group$group,"OSKO"))] ,
-  genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,"OSKO"))] ,
-  genotype_group$condition_plot[which(str_detect(genotype_group$group,"OSKO"))]) 
+  list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]      ,
+  genotype_group$weight_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]    ,
+  genotype_group$s_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
+  genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
+  genotype_group$condition_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]) 
   
   ggsave(filename = "PDFs/OSKO.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
          width = 7, height = 7)
