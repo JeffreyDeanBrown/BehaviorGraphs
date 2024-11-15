@@ -62,6 +62,7 @@ print("Done with Setup")
 # \n makes a new line when the subtitle is printed on the graph
 
 genotype_of_the_day <- "OSKO"
+filename_of_the_day <- "PDFs/OSKO.pdf"
 
 process_all_the_data(group_subtitle = "{.data$genotype} (n = {.data$n})",
                      indiv_subtitle = "Mouse \n {.data$number}, {.data$sex}, {.data$genotype}\n From cage: {.data$cage}")
