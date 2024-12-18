@@ -13,7 +13,7 @@ editor_options:
 
 #setup
 
-```{r,echo=FALSE, message=FALSE, results='hide'}
+```{r,echo=FALSE, message=FALSE, results='hide', eval=FALSE}
 library(openxlsx) 
 library(dplyr) 
 library(tidyverse) 
@@ -29,9 +29,9 @@ install_github(repo = 'https://github.com/JeffreyDeanBrown/BehaviorGraphs',
 library(BehaviorGraphs)
 options(dplyr.summarise.inform = FALSE)
 
-spreadsheet_name <- c('Behavior Data 01-08-24.xlsx')
+spreadsheet_name <- c('example_sheets/Behavior Data 01-08-24.xlsx')
 
-setwd("/mnt/Windows_E/Syncthing/R_projects/Mouse Behavior/mouse_behavior_graphs")
+#setwd("/mnt/Windows_E/Syncthing/R_projects/Mouse Behavior/mouse_behavior_graphs")
 
 
 data <- get_the_data()  #Do not change the name of this 'data' tibble unless you also change Glue Functions.R
@@ -43,7 +43,7 @@ print("Done with Setup")
 
 #Make all of the graphs
 
-```{r, echo=FALSE, message=FALSE, results='hide'}
+```{r, echo=FALSE, message=FALSE, results='hide', eval=FALSE}
 # You can edit group_subtitle and indiv_subtitle  variables to change the
 # subtitles on your grouped graphs or individual mouse graphs, respectively
 # 
@@ -70,7 +70,7 @@ process_all_the_data(group_subtitle = "{.data$genotype} (n = {.data$n})",
 
 #Make a custom graph
 
-```{r, echo=FALSE, message=FALSE, results='hide'}
+```{r, echo=FALSE, message=FALSE, results='hide', eval=FALSE}
 # To generate a custom graph, you must run generate_custom_graphs()
 # To see what genotypes you can choose, run show_custom_options()
 
