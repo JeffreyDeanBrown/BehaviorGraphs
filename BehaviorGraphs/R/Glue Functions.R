@@ -2,7 +2,7 @@
 # version 1.2.1
 # last update 03-02-2024
 #
-# FUNCTIONS: get_the_data, label_the_data, group_the_data, group_and_plot, process_all_the_data, generate_custom_graphs,
+# FUNCTIONS: label_the_data, group_the_data, group_and_plot, process_all_the_data, generate_custom_graphs,
 #            pull_the_data
 # 
 # DEPENDS: (need to fill this out)
@@ -15,52 +15,15 @@
 #   this code you will likely need to change a lot of code in other source files
   
   
-  
-#--------------------------------------------------------------------------------------------------
-
-get_the_data <- function() {
-        print("Opening the Excel file...")
-      .data <- get_sheets() %>%
-        separate_sheet() %>%
-        clean_data() %>%
-        analyze_data() %>%
-        lookup_mouse_info()
-        return(.data)}
-
-
 #------------------------------------------------------------------------------------------------------
-
-label_the_data <- function(.data, indiv_subtitle){
-        
-        print("Creating custom labels...")
-  
-        .data %<>%
-          mutate(group = str_replace(genotype, " wSOD1M",""),
-                 all   = "all", #this is combined with sex in create_label_co
-                 all2  = "all2")
-        
-        .data %<>%
-           create_label_cols()
-        
-        .data %<>%
-          create_subtitle(string = {{indiv_subtitle}},
-                          new_column = "subtitle")
-        
-        
-        return(.data)
-}
-
-#----------------------------------------------------------------------------------------
-
 #data_group is the group that you want to have as a graph for each plot
 #(an example is OSKO homo (Male))
 #pdf_group is used for referring to graphs on 'pdf Functions.R'
 group_the_data <- function(.data, data_group, pdf_group,
                            group_subtitle, legend_name){
         working_group <- .data %>% 
-            summarise_by_group(by_group = {{data_group}}) %>% 
-            create_subtitle(string = {{group_subtitle}},
-                            new_column = "legend") %>%
+            summarise_by_group(by_group = {{data_group}}) %>%
+            mutate( legend = glue(group_subtitle)) %>%
             ungroup() %>%
             group_by({{data_group}}, {{pdf_group}}) %>% nest
         return(working_group)

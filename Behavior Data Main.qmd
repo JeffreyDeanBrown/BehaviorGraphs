@@ -34,7 +34,7 @@ spreadsheet_name <- c('example_sheets/Behavior Data 01-08-24.xlsx')
 #setwd("/mnt/Windows_E/Syncthing/R_projects/Mouse Behavior/mouse_behavior_graphs")
 
 
-data <- get_the_data()  #Do not change the name of this 'data' tibble unless you also change Glue Functions.R
+data <- organize_data()  #Do not change the name of this 'data' tibble unless you also change Glue Functions.R
 print("Done with Setup")
 ```
 

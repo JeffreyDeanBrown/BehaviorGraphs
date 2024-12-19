@@ -20,6 +20,27 @@
 
 #---------------------------------------------------------------------------------------------------------------
 
+label_the_data <- function(.data, indiv_subtitle){
+        
+        print("Creating custom labels...")
+  
+        .data %<>%
+          mutate(group = str_replace(genotype, " wSOD1M",""),
+                 all   = "all", #this is combined with sex in create_label_co
+                 all2  = "all2",
+                 subtitle = glue(indiv_subtitle)
+                 )
+        
+        .data %<>%
+           create_label_cols()
+
+
+        return(.data)
+}
+
+#----------------------------------------------------------------------------------------
+
+
 create_label_cols <- function(.data){
   
   .data %<>%
@@ -82,14 +103,6 @@ new_column_by_combine <- function(.data, new_column, source_column, search, repl
              .y <- paste(.source,glue("({.combine})"))   #source_column (combine_column)
              y <- tibble(.y, .name_repair = ~ c(new_column))  #again, it's a pain in the butt to use masked data as a column name
             return(cbind(.data, y))
-}
-
-#-------------------------------------------------------------------------------------------------------------------------
-
-create_subtitle <- function(.data, string, new_column){
-        .y <- glue(string)
-        y <- tibble(.y, .name_repair = ~c(new_column))
-        return(cbind(.data, y))
 }
 
 #--------------------------------------------------------------------------------------------------------------
