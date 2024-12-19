@@ -20,9 +20,10 @@ organize_data <- function(spreadsheet_name, ...) {
         print("Opening the Excel file...") 
 .data <- get_sheets(spreadsheet_name) %>%    # returns sheets as a list
         separate_lut(...) %>%                # separates the 1st sheet (lookup table) to df "mouse_lut"
-        clean_data(...) %>%                  # cleans up names, pulls weeks_to_keep, rowbinds all to one df
+        clean_data(...) %>%                  # cleans up names, pulls weeks_to_keep, rowbinds sheets to one df
         average_data(...) %>%                # averages all weight and grip measurements for each week
         lookup_mouse_info()                  # pulls mouse number, cage, and genotype from mouse_lut
+        rm(mouse_lut)
         return(.data)}
 
 
