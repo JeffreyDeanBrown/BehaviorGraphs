@@ -23,9 +23,24 @@ group_and_plot <- function(working_group, data_group, pdf_group, group_subtitle)
                        summarise_by_group(group_subtitle = group_subtitle, group = {{ data_group }}) %>%
                        ungroup() %>%
                        group_by({{ data_group }}, {{ pdf_group }}) %>% nest
-        graph_subtitle = deparse(substitute(data_group))
-        grouped_data %<>% plot_the_group(graph_subtitle = graph_subtitle)
+#
+# > grouped_data (example: pdf_group = group, data_group = group_sex)
+#
+#   group  group_sex    data               
+# 1 WT     WT (Female)  <tibble> 
+# 2 WT     WT (Male)    <tibble>
+#
+        graph_subtitle = deparse(substitute(data_group)) # to subtitle the graphs, data_group deparsed for pluck()
+        plot_the_group(grouped_data, graph_subtitle = graph_subtitle)
         return(grouped_data)
+#
+# > grouped_data (example: pdf_group = group, data_group = group_sex)
+#
+#   group  group_sex    data        weight_plot  grip_plot  [s_, t_]rotarod_plot  condition_plot      
+# 1 WT     WT (Female)  <tibble>    <gtable>     <gtable>   <gtable>              <gtable>   
+# 2 WT     WT (Male)    <tibble>    <gtable>     <gtable>   <gtable>              <gtable>   
+#
+
 }
 
 #--------------------------------------------------------------------------------------------------------------
