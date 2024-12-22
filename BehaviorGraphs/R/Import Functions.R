@@ -23,7 +23,7 @@ organize_data <- function(spreadsheet_name, ...) {
         clean_data(...) %>%                  # cleans up names, pulls weeks_to_keep, rowbinds sheets to one df
         average_data(...) %>%                # averages all weight and grip measurements for each week
         lookup_mouse_info()                  # pulls mouse number, cage, and genotype from mouse_lut
-        rm(mouse_lut)
+        rm(mouse_lut, inherits=TRUE)
         return(.data)}
 
 
@@ -47,7 +47,7 @@ separate_lut <- function(.data,
                            {
 
         mouse_lut <<- pluck(.data,1) %>%
-                      subset(select = {{lut_col_keep}}) %>%
+                      subset(select = {{ lut_col_keep }}) %>%
                       rename_with(to_snake_case)
         
         .data <- .data[-1]                                       #remove .data[1]
@@ -78,8 +78,8 @@ clean_data <- function(.data,
                                   .id = "id")      # with a column "id" that has the sheet name
                                                                 
           
-          clean_list %<>% dplyr::rename(t_rotarod = {{rotarod_time}},        
-                                        s_rotarod = {{rotarod_speed}})
+          clean_list %<>% dplyr::rename(t_rotarod = {{ rotarod_time }},        
+                                        s_rotarod = {{ rotarod_speed }})
           return(clean_list)
 }
 
@@ -95,15 +95,15 @@ average_data <- function(.data,
 {
           .data %<>%
               mutate(
-                    weight_av = subset({{.data}}, select = weight_data) %>%
+                    weight_av = subset({{ .data }}, select = weight_data) %>%
                                 rowMeans(na.rm = TRUE),
-                    grip_av = subset({{.data}}, select = grip_data) %>%
+                    grip_av = subset({{ .data }}, select = grip_data) %>%
                                 rowMeans(na.rm = TRUE),
-                    weight_sd = subset({{.data}}, select = weight_data) %>%
+                    weight_sd = subset({{ .data }}, select = weight_data) %>%
                                 apply(1, sd, na.rm = TRUE),
-                    grip_sd = subset({{.data}}, select = grip_data) %>%
+                    grip_sd = subset({{ .data }}, select = grip_data) %>%
                                 apply(1, sd, na.rm = TRUE)) %>%
-                    subset(select = {{kept_columns}})                                 
+                    subset(select = {{ kept_columns }})                                 
                   
          return(.data)
 }

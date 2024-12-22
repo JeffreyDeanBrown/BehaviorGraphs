@@ -29,7 +29,7 @@ plot_the_indiv <- function(.data, subtitle){
                panel.grid.minor = element_blank(),
                panel.background = element_blank())
   
-  .data %<>% group_by(id, {{subtitle}}, group, sod1_group) %>% nest
+  .data %<>% group_by(id, {{ subtitle }}, group, sod1_group) %>% nest
   
   print("plotting weight for individual mice...")
   
@@ -114,19 +114,19 @@ plot_by_indiv <- function(.data, new_column, data_colname = 'data', subtitle,
     t1, t2, 
     ~ ggplot(data = .x,
              aes(x = week,
-                 y = {{measured_val}},
+                 y = {{ measured_val }},
                  label = week, na.rm = TRUE)) +
-      ggtitle({{title_str}},          #### graph title
+      ggtitle({{ title_str }},          #### graph title
               paste(glue("{.y}"))) +
       geom_line(linewidth = 1, na.rm = TRUE) +
-      coord_fixed(ratio = {{plot_ratio}}) +
-      scale_y_continuous({{yaxis_str}},   #### y-axis title
-                         limits = {{y_lim}},
-                         breaks = {{y_break}}) +
+      coord_fixed(ratio = {{ plot_ratio }}) +
+      scale_y_continuous({{ yaxis_str }},   #### y-axis title
+                         limits = {{ y_lim }},
+                         breaks = {{ y_break }}) +
       scale_x_continuous("Age (weeks)",
                          breaks = c(11:24)) + 
-      geom_errorbar(aes(ymin = {{measured_val}} - {{sd}},
-                        ymax = {{measured_val}} + {{sd}}),
+      geom_errorbar(aes(ymin = {{ measured_val }} - {{ sd }},
+                        ymax = {{ measured_val }} + {{ sd }}),
                     linewidth = errbar_width,
                     width = 0.2))
   

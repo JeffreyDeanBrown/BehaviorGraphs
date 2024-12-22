@@ -33,7 +33,7 @@ plot_the_group <- function(.data, graph_subtitle){
   # edit title_str, yaxis_str, y_lim, y_break, or plot_ratio here to edit the
   # title, y-axis label, y-axis limit, y-axis ticks, or ratio of the graphs
   .data %<>% plot_by_group(new_column = 'weight_plot',
-                                graph_subtitle = {{graph_subtitle}},
+                                graph_subtitle = {{ graph_subtitle }},
                                 measured_val = weight_av_mean,
                                 sd = weight_av_sd,
                                 title_str = "Body Weight (grams)",
@@ -44,7 +44,7 @@ plot_the_group <- function(.data, graph_subtitle){
 
   print("plotting the mice by grip...")
   .data %<>% plot_by_group(new_column = 'grip_plot',
-                                 graph_subtitle = {{graph_subtitle}},
+                                 graph_subtitle = {{ graph_subtitle }},
                                  measured_val = grip_av_mean,
                                  sd = grip_av_sd,
                                  title_str = "Grip Strength (grams)",
@@ -55,7 +55,7 @@ plot_the_group <- function(.data, graph_subtitle){
 
   print("plotting the mice by rotarod...")
   .data %<>% plot_by_group(new_column = 's_rotarod_plot',
-                                 graph_subtitle = {{graph_subtitle}},
+                                 graph_subtitle = {{ graph_subtitle }},
                                  measured_val = s_rotarod_mean,
                                  sd = s_rotarod_sd,
                                  title_str = 'Rotarod Speed (RPM) at time of Fall',
@@ -65,7 +65,7 @@ plot_the_group <- function(.data, graph_subtitle){
                                  plot_ratio = 0.3)
 
   .data %<>% plot_by_group(new_column = 't_rotarod_plot',
-                                 graph_subtitle = {{graph_subtitle}},
+                                 graph_subtitle = {{ graph_subtitle }},
                                  measured_val = t_rotarod_mean,
                                  sd = t_rotarod_sd,
                                  title_str = 'Time on Rotarod (seconds)',
@@ -76,7 +76,7 @@ plot_the_group <- function(.data, graph_subtitle){
   
   print("plotting the mice by condition...")
   .data %<>% plot_by_group(new_column = 'condition_plot',
-                                 graph_subtitle = {{graph_subtitle}},
+                                 graph_subtitle = {{ graph_subtitle }},
                                  measured_val = condition_mean,
                                  sd = condition_sd,
                                  title_str = 'Mouse Condition (rated 1 through 5)',
@@ -102,20 +102,20 @@ plot_by_group <- function(.data, new_column, data_colname = 'data', graph_subtit
     t1, t2, 
     ~ ggplot(data = .x,
              aes(x = week,
-                 y = {{measured_val}},
-                 group = {{group_legend}},
-                 color = {{group_legend}}, na.rm = TRUE), shape='.') +
-      ggtitle({{title_str}},          #### graph title
+                 y = {{ measured_val }},
+                 group = {{ group_legend }},
+                 color = {{ group_legend }}, na.rm = TRUE), shape='.') +
+      ggtitle({{ title_str }},          #### graph title
               paste(glue("{.y}"))) +
       geom_line(linewidth = 1, na.rm = TRUE) +
-      coord_fixed(ratio = {{plot_ratio}}) +
-      scale_y_continuous({{yaxis_str}},   #### y-axis title
-                         limits = {{y_lim}},
-                         breaks = {{y_break}}) +
+      coord_fixed(ratio = {{ plot_ratio }}) +
+      scale_y_continuous({{ yaxis_str }},   #### y-axis title
+                         limits = {{ y_lim }},
+                         breaks = {{ y_break }}) +
       scale_x_continuous("Age (weeks)",
                          breaks = c(11:24)) + 
-      geom_errorbar(aes(ymin = {{measured_val}} - {{sd}},
-                        ymax = {{measured_val}} + {{sd}}),
+      geom_errorbar(aes(ymin = {{ measured_val }} - {{ sd }},
+                        ymax = {{ measured_val }} + {{ sd }}),
                     linewidth = 0.3,
                     width = 0.2))
   
