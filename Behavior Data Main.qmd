@@ -64,7 +64,10 @@ print("Done with Setup")
 genotype_of_the_day <- "OSKO"
 filename_of_the_day <- "PDFs/OSKO.pdf"
 
-process_all_the_data(group_subtitle = "{.data$genotype} (n = {.data$n})") ```
+data %>%
+label_the_data() %>%
+plot_the_data()
+```
 
 #Make a custom graph
 
@@ -73,7 +76,7 @@ process_all_the_data(group_subtitle = "{.data$genotype} (n = {.data$n})") ```
 # To see what genotypes you can choose, run show_custom_options()
 
 # NOTE: generate_custom_graphs can also take custom subtitles by providing
-#       group_subtitle using the same syntax from process_all_the_data
+#       group_subtitle using the same syntax from plot_the_data
 #
 #           example:   group_subtitle = "{.data$genotype} (n = {.data$n})"
 # 

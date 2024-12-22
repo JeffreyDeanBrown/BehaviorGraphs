@@ -28,23 +28,19 @@ label_the_data <- function(.data,
   
             .data %<>%
               mutate(group = str_replace(genotype, " wSOD1M",""),
-                     all   = "all", #this is used by process_all_the_data and generate_custom_graphs 
+                     all   = "all", #this is used by plot_the_data and generate_custom_graphs 
                      all2  = "all2",
                      sex            = glue("{str_detect(id, 'M') %>%                     # id is labeled M/F
                                                 ifelse('Male','Female')}"),              # based on sex
-                     sod1_group     = paste(
-                                            str_remove(genotype," wSOD1M"),              # remove ' wSOD1M' and
-                                            glue("{                                      # replaces it with
-                                                str_detect(genotype, 'wSOD1M') %>%       # clearer SOD1 labels
-                                                ifelse('SOD1mut','SOD1wt')}")            #
-                                           ),
-                     subtitle       = glue(indiv_subtitle),
-                     sod1_group_sex = glue("{sod1_group} ({sex})"),
-                     all_sex        = glue("{all} ({sex})"),
-                     genotype_sex   = glue("{genotype} ({sex})"),
-                     group_sex      = glue("{str_remove(genotype,' wSOD1M')} ({sex})")
+                     sod1_factor    = str_detect(genotype, 'wSOD1M') %>%
+                                      ifelse('SOD1mut','SOD1wt') %>%
+                                      as.factor(),
+                     subtitle        = glue(indiv_subtitle),
+                     sod1_factor_sex = glue("{sod1_factor} ({sex})"),
+                     all_sex         = glue("{all} ({sex})"),
+                     genotype_sex    = glue("{genotype} ({sex})"),
+                     group_sex       = glue("{str_remove(genotype,' wSOD1M')} ({sex})")
                      )
-
         return(.data)
         }
 

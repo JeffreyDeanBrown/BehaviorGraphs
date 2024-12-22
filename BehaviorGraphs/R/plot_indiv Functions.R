@@ -29,7 +29,7 @@ plot_the_indiv <- function(.data, subtitle){
                panel.grid.minor = element_blank(),
                panel.background = element_blank())
   
-  .data %<>% group_by(id, {{ subtitle }}, group, sod1_group) %>% nest
+  .data %<>% group_by(id, {{ subtitle }}, group, sod1_factor) %>% nest
   
   print("plotting weight for individual mice...")
   

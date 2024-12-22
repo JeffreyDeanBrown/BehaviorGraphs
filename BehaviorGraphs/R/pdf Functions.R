@@ -4,10 +4,10 @@
 #
 # FUNCTIONS: print_with_indiv, print_without_indiv, print_custom_graphs
 #
-# DEPENDS:  process_all_the_data (creates the names for the nested lists of graphs)
+# DEPENDS:  plot_the_data (creates the names for the nested lists of graphs)
 #           plot_the_group and plot_the_indiv (name the plot columns)
 #           label_the_data (labels the "group" column)
-#           create_labels_cols (labels the "sod1_group" column)
+#           create_labels_cols (labels the "sod1_factor" column)
 #   (DEPENDS needs to be updated)
 #          
 # DESCRIPTION:
@@ -64,31 +64,31 @@ ggsave(filename = filename_of_the_day, plot = marrangeGrob(grobs = list, nrow = 
 
 #SOD1m
 
-list <- c(sod1_group %>% subset(sod1_group == 'SOD1mut') %>% pluck('grip_plot')      ,
-sod1_group %>% subset(sod1_group == 'SOD1mut') %>% pluck('weight_plot')    ,
-sod1_group %>% subset(sod1_group == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
-sod1_group %>% subset(sod1_group == 'SOD1mut') %>% pluck('t_rotarod_plot') ,
-sod1_group %>% subset(sod1_group == 'SOD1mut') %>% pluck('condition_plot') ,
-indiv_     %>% subset(sod1_group == 'SOD1mut') %>% pluck('grip_plot')      ,
-indiv_     %>% subset(sod1_group == 'SOD1mut') %>% pluck('weight_plot')    ,
-indiv_     %>% subset(sod1_group == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
-indiv_     %>% subset(sod1_group == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
-indiv_     %>% subset(sod1_group == 'SOD1mut') %>% pluck('condition_plot'))
+list <- c(sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('grip_plot')      ,
+sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('weight_plot')    ,
+sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
+sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('t_rotarod_plot') ,
+sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('condition_plot') ,
+indiv_     %>% subset(sod1_factor == 'SOD1mut') %>% pluck('grip_plot')      ,
+indiv_     %>% subset(sod1_factor == 'SOD1mut') %>% pluck('weight_plot')    ,
+indiv_     %>% subset(sod1_factor == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
+indiv_     %>% subset(sod1_factor == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
+indiv_     %>% subset(sod1_factor == 'SOD1mut') %>% pluck('condition_plot'))
 
 ggsave(filename = "PDFs/mutant SOD1.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
        width = 7, height = 7)
 #SOD1wt
 
-list <- c(sod1_group %>% subset(sod1_group == 'SOD1wt') %>% pluck('grip_plot')      ,
-sod1_group %>% subset(sod1_group == 'SOD1wt') %>% pluck('weight_plot')    ,
-sod1_group %>% subset(sod1_group == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
-sod1_group %>% subset(sod1_group == 'SOD1wt') %>% pluck('t_rotarod_plot') ,
-sod1_group %>% subset(sod1_group == 'SOD1wt') %>% pluck('condition_plot') ,
-indiv_     %>% subset(sod1_group == 'SOD1wt') %>% pluck('grip_plot')      ,
-indiv_     %>% subset(sod1_group == 'SOD1wt') %>% pluck('weight_plot')    ,
-indiv_     %>% subset(sod1_group == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
-indiv_     %>% subset(sod1_group == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
-indiv_     %>% subset(sod1_group == 'SOD1wt') %>% pluck('condition_plot'))
+list <- c(sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('grip_plot')      ,
+sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('weight_plot')    ,
+sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
+sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('t_rotarod_plot') ,
+sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('condition_plot') ,
+indiv_     %>% subset(sod1_factor == 'SOD1wt') %>% pluck('grip_plot')      ,
+indiv_     %>% subset(sod1_factor == 'SOD1wt') %>% pluck('weight_plot')    ,
+indiv_     %>% subset(sod1_factor == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
+indiv_     %>% subset(sod1_factor == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
+indiv_     %>% subset(sod1_factor == 'SOD1wt') %>% pluck('condition_plot'))
 
 ggsave(filename = "PDFs/wildtype SOD1.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
        width = 7, height = 7)
@@ -128,22 +128,22 @@ print_without_indiv <- function(){
   
   #SOD1m
   
-  list <- c(sod1_group %>% subset(sod1_group == 'SOD1mut') %>% pluck('grip_plot')      ,
-  sod1_group %>% subset(sod1_group == 'SOD1mut') %>% pluck('weight_plot')    ,
-  sod1_group %>% subset(sod1_group == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
-  sod1_group %>% subset(sod1_group == 'SOD1mut') %>% pluck('t_rotarod_plot') ,
-  sod1_group %>% subset(sod1_group == 'SOD1mut') %>% pluck('condition_plot'))
+  list <- c(sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('grip_plot')      ,
+  sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('weight_plot')    ,
+  sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
+  sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('t_rotarod_plot') ,
+  sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('condition_plot'))
   
   ggsave(filename = "PDFs/mutant SOD1.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
          width = 7, height = 7)
   
   #SOD1wt
   
-  list <- c(sod1_group %>% subset(sod1_group == 'SOD1wt') %>% pluck('grip_plot')      ,
-  sod1_group %>% subset(sod1_group == 'SOD1wt') %>% pluck('weight_plot')    ,
-  sod1_group %>% subset(sod1_group == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
-  sod1_group %>% subset(sod1_group == 'SOD1wt') %>% pluck('t_rotarod_plot') ,
-  sod1_group %>% subset(sod1_group == 'SOD1wt') %>% pluck('condition_plot'))
+  list <- c(sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('grip_plot')      ,
+  sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('weight_plot')    ,
+  sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
+  sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('t_rotarod_plot') ,
+  sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('condition_plot'))
   
   ggsave(filename = "PDFs/wildtype SOD1.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
          width = 7, height = 7)
