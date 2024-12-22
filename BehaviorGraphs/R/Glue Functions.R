@@ -20,7 +20,7 @@
 
 group_and_plot <- function(working_group, data_group, pdf_group, group_subtitle){
         grouped_data <- working_group %>% 
-                       summarise_by_group(group = {{ data_group }}, group_subtitle = {{ group_subtitle }} ) %>%
+                       summarise_by_group(group_subtitle = group_subtitle, group = {{ data_group }}) %>%
                        ungroup() %>%
                        group_by({{ data_group }}, {{ pdf_group }}) %>% nest
         graph_subtitle = deparse(substitute(data_group))
@@ -32,8 +32,8 @@ group_and_plot <- function(working_group, data_group, pdf_group, group_subtitle)
 
 # summarise_by_group will separate out your data by whatever group you want to be the 
 # final graph group (i.e. it is common to graph one genotype+sex, such as OSKO homo (Male))
-summarise_by_group <- function(.data, group, group_subtitle){
-        
+summarise_by_group <- function(.data, group_subtitle, group){
+            .data %>%
               group_by({{ group }}, week, genotype) %>%
                  mutate(grip_av_mean   = mean(grip_av, na.rm = TRUE),
                         weight_av_mean = mean(weight_av, na.rm = TRUE),
