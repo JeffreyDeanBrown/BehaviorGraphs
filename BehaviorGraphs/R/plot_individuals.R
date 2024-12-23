@@ -2,14 +2,14 @@
 # version 1.2
 # last update 03-02-2024
 #
-# FUNCTIONS:  plot_the_indiv, plot_by_indiv
+# FUNCTIONS:  plot_individuals, plot_by_indiv
 # 
 # DEPENDS: (need to fill this out)
 # 
 # DESCRIPTION:
 #   These functions plot the graphs for individual mice. 
 # 
-#   plot_the_indiv is the place to customize the individual mouse graphs,
+#   plot_individuals is the place to customize the individual mouse graphs,
 #   while plot_by_indiv has all of the ggplot mechanisms used for each graph. 
 #   
 #   be careful when changing plot_by_indiv
@@ -17,7 +17,7 @@
 
 #-----------------------------------------------------------------------------------------------------------------
 
-plot_the_indiv <- function(.data, subtitle){                         #move stats to a layer and remove it from earlier functions!
+plot_individuals <- function(.data, subtitle){                         #move stats to a layer and remove it from earlier functions!
 
 
   
@@ -105,32 +105,22 @@ plot_the_indiv <- function(.data, subtitle){                         #move stats
 
 #-------------------------------------------------------------------------------------------------------------------
 
-plot_by_indiv <- function(.data, new_column, data_colname = 'data', subtitle,
-                          measured_val, title_str, yaxis_str, y_lim, y_break,
-                          sd, plot_ratio, errbar_width = 0.3){
+plot_by_indiv <- function(.data, new_column, subtitle, measured_val, title_str, yaxis_str, y_lim, y_break,
+                          sd, plot_ratio){
   
-  t1 <- pluck(.data, data_colname)
+  t1 <- pluck(.data, 'data')
   t2 <- pluck(.data, subtitle)
   
   x <- map2(
     t1, t2, 
-    ~ ggplot(data = .x,
-             aes(x = week,
-                 y = {{ measured_val }},
-                 label = week, na.rm = TRUE)) +
-      ggtitle({{ title_str }},          #### graph title
-              paste(glue("{.y}"))) +
+    ~ ggplot(data = .x, aes(x = week, y = {{ measured_val }}, label = week, na.rm = TRUE)) +
+      ggtitle({{ title_str }}, paste(glue("{.y}"))) +
       geom_line(linewidth = 1, na.rm = TRUE) +
       coord_fixed(ratio = {{ plot_ratio }}) +
-      scale_y_continuous({{ yaxis_str }},   #### y-axis title
-                         limits = {{ y_lim }},
-                         breaks = {{ y_break }}) +
-      scale_x_continuous("Age (weeks)",
-                         breaks = c(11:24)) + 
-      geom_errorbar(aes(ymin = {{ measured_val }} - {{ sd }},
-                        ymax = {{ measured_val }} + {{ sd }}),
-                    linewidth = errbar_width,
-                    width = 0.2))
+      scale_y_continuous({{ yaxis_str }}, limits = {{ y_lim }}, breaks = {{ y_break }}) +
+      scale_x_continuous("Age (weeks)", breaks = c(11:24)) + 
+      geom_errorbar(aes(ymin = {{ measured_val }} - {{ sd }}, ymax = {{ measured_val }} + {{ sd }}),
+                    linewidth = 0.3, width = 0.2))
   
   y <- tibble(x, .name_repair = ~ c(new_column))
   

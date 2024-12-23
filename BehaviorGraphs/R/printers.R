@@ -5,7 +5,7 @@
 # FUNCTIONS: print_with_indiv, print_without_indiv, print_custom_graphs
 #
 # DEPENDS:  plot_the_data (creates the names for the nested lists of graphs)
-#           plot_the_group and plot_the_indiv (name the plot columns)
+#           plot_the_group and plot_individuals (name the plot columns)
 #           label_the_data (labels the "group" column)
 #           create_labels_cols (labels the "sod1_factor" column)
 #   (DEPENDS needs to be updated)

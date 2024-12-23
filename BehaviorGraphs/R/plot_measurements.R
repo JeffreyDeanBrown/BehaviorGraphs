@@ -20,8 +20,7 @@
 #-------------------------------------------------------------------------------------------------
 
 
-plot_measurements <- function(.data, graph_subtitle){                        #move stats to a layer and remove it from earlier functions!
-  #theme for the graphs. edit this to edit the style of the graph         # also only make one plot function, but pipe in differently grouped data (either indiv or w/e)
+plot_measurements <- function(.data, graph_subtitle){
   theme_update(legend.title = element_blank(),
                axis.line = element_line(colour = "black"),
                panel.grid.major = element_line(colour = 'lightgray', linewidth = 0.05),
@@ -30,8 +29,6 @@ plot_measurements <- function(.data, graph_subtitle){                        #mo
   
   print("plotting the mice by weight...")
   
-  # edit title_, yaxis_str, y_lim, y_break, or plot_ratio here to edit the
-  # title, y-axis label, y-axis limit, y-axis ticks, or ratio of the graphs
   .data %<>% plotter_gg(new_column = 'weight_plot',
                                 graph_subtitle = graph_subtitle,
                                 measured_val = weight_av,
@@ -92,30 +89,18 @@ plotter_gg <- function(.data, new_column, graph_subtitle, measured_val, title_st
   list1 <- pluck(.data, 'data')
   list2 <- pluck(.data, graph_subtitle)
   
-  x <- suppressWarnings(map2(
-    list1, list2, 
-    ~ ggplot(data = .x,
-             aes(x = week, y = {{ measured_val }},
-                 color = genotype_lab, na.rm = TRUE)) + #:genotype_lab: genotype (n={n_distinct(number)})
-      ggtitle({{ title_str }},   # graph title
-              glue("{.y}")) +    # subtitle = graph_subtitle
-      geom_line(stat = 'summary', fun = 'mean', linewidth = 1, na.rm = TRUE) +
-      geom_pointrange(stat = 'summary', fun.data = 'mean_cl_boot', linewidth = 1) +
-      coord_fixed(ratio = {{ plot_ratio }}) +
-      scale_y_continuous({{ yaxis_str }},   #### y-axis title
-                         limits = {{ y_lim }},
-                         breaks = {{ y_break }}) +
-      scale_x_continuous("Age (weeks)",
-                         breaks = c(11:24))))
-  
-  # y <- lapply(x, function(x){ggplotGrob(x)})
-  y <- tibble(x, .name_repair = ~ c(new_column))
-  
-  
-  return(cbind(.data, y))
-  
+  mutate(
+   !!{{ new_column }} =  map2(list1, list2, ~
+    ggplot(data = .x, aes(x = week, y = {{ measured_val }}, color = genotype_lab, na.rm = TRUE)) + #:genotype_lab: genotype (n={n_distinct(number)})
+    ggtitle(title = {{ title_str }}, subtitle =  glue("{.y}")) +
+    geom_line(stat = 'summary', fun = 'mean', linewidth = 1, na.rm = TRUE) +
+    geom_pointrange(stat = 'summary', fun.data = 'mean_cl_boot', linewidth = 0.7, na.rm = TRUE) +
+    coord_fixed(ratio = {{ plot_ratio }}) +
+    scale_y_continuous(name = {{ yaxis_str }}, limits = {{ y_lim }}, breaks = {{ y_break }}) +
+    scale_x_continuous(name = "Age (weeks)", breaks = c(11:24))
+    )
+  ) 
 }
-
 
 #---------------------------------------------------------------------------------------------------------------
 

@@ -29,7 +29,7 @@ plot_the_data <- function(.data, ...){
       all_group      <<- .data %>% group_and_plot(graph_group = 'all_sex',
                                                   pdf_group = 'all', ...)   #remove all from label_the_data when you have cleaned this up
       print("making graphs for all individual mice...")
-      indiv_ <<- .data %>% plot_the_indiv(subtitle = subtitle)
+      indiv_         <<- .data %>% plot_individuals(subtitle = subtitle)
 
       }
 
@@ -55,5 +55,4 @@ group_and_plot <- function(.data, pdf_group,     # a pdf will print for this gro
 # 2 WT     WT (Male)    <tibble>    <gtable>     <gtable>   <gtable>              <gtable>   
         return(.data)
 }
-
 
