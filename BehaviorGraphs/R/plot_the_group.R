@@ -108,8 +108,8 @@ plotter_gg <- function(.data, new_column, graph_subtitle, measured_val, title_st
       scale_x_continuous("Age (weeks)",
                          breaks = c(11:24))))
   
-  y <- lapply(x, function(x){ggplotGrob(x)})
-  y <- tibble(y, .name_repair = ~ c(new_column))
+  # y <- lapply(x, function(x){ggplotGrob(x)})
+  y <- tibble(x, .name_repair = ~ c(new_column))
   
   
   return(cbind(.data, y))
