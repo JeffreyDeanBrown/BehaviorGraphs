@@ -17,7 +17,9 @@
 
 #-----------------------------------------------------------------------------------------------------------------
 
-plot_the_indiv <- function(.data, subtitle){
+plot_the_indiv <- function(.data, subtitle){                         #move stats to a layer and remove it from earlier functions!
+
+
   
   # edit theme_update parameters to change the style of the graphs
   

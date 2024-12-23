@@ -20,8 +20,8 @@
 #-------------------------------------------------------------------------------------------------
 
 
-plot_the_group <- function(.data, graph_subtitle){
-  #theme for the graphs. edit this to edit the style of the graph
+plot_the_group <- function(.data, graph_subtitle){                        #move stats to a layer and remove it from earlier functions!
+  #theme for the graphs. edit this to edit the style of the graph         # also only make one plot function, but pipe in differently grouped data (either indiv or w/e)
   theme_update(legend.title = element_blank(),
                axis.line = element_line(colour = "black"),
                panel.grid.major = element_line(colour = 'lightgray', linewidth = 0.05),

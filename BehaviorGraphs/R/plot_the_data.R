@@ -15,26 +15,41 @@
 #   this code you will likely need to change a lot of code in other source files
   
   
+#-----------------------------------------------------------------------------------------
+
+plot_the_data <- function(.data, ...){
+  
+      print("making graphs by genotype...")
+      genotype_group <<- .data %>% group_and_plot(graph_group = "group_sex",
+                                                  pdf_group = "group", ...)
+      print("making graphs by sod1 type...")
+      sod1_group     <<- .data %>% group_and_plot(graph_group = "sod1_factor_sex",
+                                                  pdf_group = "sod1_factor", ...)
+      print("making graphs of all mice by group...")
+      all_group      <<- .data %>% group_and_plot(graph_group = 'all_sex',
+                                                  pdf_group = 'all', ...)   #remove all from label_the_data when you have cleaned this up
+      print("making graphs for all individual mice...")
+      indiv_ <<- .data %>% plot_the_indiv(subtitle = subtitle)
+
+      }
+
 #-------------------------------------------------------------------------------------------------------------
 # Mice will be grouped by legend_label, and the text for legend_label will be shown on the legend
 
-group_and_plot <- function(.data, pdf_group,     # a pdf will print for this group (example: all WT mice, SOD1mut mice, etc) 
-                                  graph_group,   # a graph will render this group  (example: WT (Male), WT (female), etc)
+group_and_plot <- function(.data, pdf_group,     # a pdf will print for this group (example: all WT mice in one PDF) 
+                                  graph_group,   # a graph will render this group  (example: WT (Male), WT (female))
                                   ...){
-#
 # get the mean(), sd(), and n_distinct() for every .data$week and every .data$genotype within graph_group
 # (mean and sd used for the graph, n used in the legend)
         .data %<>% 
                summarise_by_group(group = c(graph_group, "week", "genotype"), ...) %>% # returns mean() sd() and n()
                nest(.by = c( !!graph_group, !!pdf_group)) # nest uses tidy NSE
-#
 # >  .data (example: pdf_group = group, graph_group = group_sex)
 #   group  group_sex    data               
 # 1 WT     WT (Female)  <tibble> 
 # 2 WT     WT (Male)    <tibble>
         .data %<>%
               plot_the_group(graph_subtitle = graph_group)
-#
 # >  .data
 #   group  group_sex    data        weight_plot  grip_plot  [s_, t_]rotarod_plot  condition_plot      
 # 1 WT     WT (Female)  <tibble>    <gtable>     <gtable>   <gtable>              <gtable>   
@@ -62,58 +77,6 @@ summarise_by_group <- function(.data, group,
                         condition_sd   = sd(condition, na.rm = TRUE),
                         n = n_distinct(number),
                         legend = glue(legend_label)) # example: WT w/SOD1mut (n = 5)
-}
-
-#-----------------------------------------------------------------------------------------
-
-plot_the_data <- function(.data, ...){
-  
-      print("Do you want to print individual mice plots? [y/n] (it will be slower)")
-      
-      repeat {
-        var = readline()               #takes an input from the console
-        
-        #yes, the user wants to plot individuals:
-        if (var == "y") {
-          print("making graphs by genotype...")
-          genotype_group <<- .data %>% group_and_plot(graph_group = "group_sex",
-                                                      pdf_group = "group", ...)
-          print("making graphs by sod1 type...")
-          sod1_group     <<- .data %>% group_and_plot(graph_group = "sod1_factor_sex",
-                                                      pdf_group = "sod1_factor", ...)
-          print("making graphs for all individual mice...")
-          indiv_ <<- .data %>% plot_the_indiv(subtitle = subtitle)
-          suppressWarnings(print_with_indiv())
-          
-          print("Done!")
-          
-          break
-        }
-        
-        #no, the user does not want to plot individuals:
-        else if (var == "n") {  
-          print("making graphs by genotype...")
-          genotype_group <<- .data %>% group_and_plot(graph_group = 'group_sex',
-                                                      pdf_group = 'group', ...)
-          print("making graphs by sod1 type...")
-          sod1_group     <<- .data %>% group_and_plot(graph_group = 'sod1_factor_sex',
-                                                      pdf_group = 'sod1_factor', ...)
-          print("making graphs of all mice by group...")
-          all_group      <<- .data %>% group_and_plot(graph_group = 'all_sex',
-                                                      pdf_group = 'all', ...)   #remove all from label_the_data when you have cleaned this up
-          suppressWarnings(print_without_indiv())
-          
-          print("Done!")
-          
-          break
-        }
-        
-        #the user did not enter yes (y) or no (n)
-        else {
-          print("ERROR: please enter a 'y' or a 'n'")
-      }
-      
-}
 }
 
 #-------------------------------------------------------------------------------------------

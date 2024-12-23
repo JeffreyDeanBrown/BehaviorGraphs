@@ -30,7 +30,7 @@ print_with_indiv <- function() {
 #pFlp
 
 
-list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,"pFlp"))]      ,
+grob_list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,"pFlp"))]      , #just unlist a subset
 genotype_group$weight_plot[which(str_detect(genotype_group$group,"pFlp"))]    ,
 genotype_group$s_rotarod_plot[which(str_detect(genotype_group$group,"pFlp"))] ,
 genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,"pFlp"))] ,
@@ -41,13 +41,13 @@ indiv_$s_rotarod_plot[which(str_detect(indiv_$group,"pFlp"))]                 ,
 indiv_$s_rotarod_plot[which(str_detect(indiv_$group,"pFlp"))]                 ,
 indiv_$condition_plot[which(str_detect(indiv_$group,"pFlp"))]) 
 
-ggsave(filename = "PDFs/pFlp.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
-       width = 7, height = 7)          
+suppressWarnings(ggsave(filename = "PDFs/pFlp.pdf", plot = marrangeGrob(grobs = grob_list, nrow = 1, ncol = 1),
+       width = 7, height = 7))          
 
 
 #genotype to be graphed today
 
-list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]      ,
+grob_list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]      ,
 genotype_group$weight_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]    ,
 genotype_group$s_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
 genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
@@ -58,13 +58,13 @@ indiv_$s_rotarod_plot[which(str_detect(indiv_$group,genotype_of_the_day))]      
 indiv_$s_rotarod_plot[which(str_detect(indiv_$group,genotype_of_the_day))]                 ,
 indiv_$condition_plot[which(str_detect(indiv_$group,genotype_of_the_day))]) 
 
-ggsave(filename = filename_of_the_day, plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
-       width = 7, height = 7)
+suppressWarnings(ggsave(filename = filename_of_the_day, plot = marrangeGrob(grobs = grob_list, nrow = 1, ncol = 1),
+       width = 7, height = 7))
 
 
 #SOD1m
 
-list <- c(sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('grip_plot')      ,
+grob_list <- c(sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('grip_plot')      ,
 sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('weight_plot')    ,
 sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
 sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('t_rotarod_plot') ,
@@ -75,11 +75,11 @@ indiv_     %>% subset(sod1_factor == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
 indiv_     %>% subset(sod1_factor == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
 indiv_     %>% subset(sod1_factor == 'SOD1mut') %>% pluck('condition_plot'))
 
-ggsave(filename = "PDFs/mutant SOD1.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
-       width = 7, height = 7)
+suppressWarnings(ggsave(filename = "PDFs/mutant SOD1.pdf", plot = marrangeGrob(grobs = grob_list, nrow = 1, ncol = 1),
+       width = 7, height = 7))
 #SOD1wt
 
-list <- c(sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('grip_plot')      ,
+grob_list <- c(sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('grip_plot')      ,
 sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('weight_plot')    ,
 sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
 sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('t_rotarod_plot') ,
@@ -90,8 +90,8 @@ indiv_     %>% subset(sod1_factor == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
 indiv_     %>% subset(sod1_factor == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
 indiv_     %>% subset(sod1_factor == 'SOD1wt') %>% pluck('condition_plot'))
 
-ggsave(filename = "PDFs/wildtype SOD1.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
-       width = 7, height = 7)
+suppressWarnings(ggsave(filename = "PDFs/wildtype SOD1.pdf", plot = marrangeGrob(grobs = grob_list, nrow = 1, ncol = 1),
+       width = 7, height = 7))
 }
 
 
@@ -105,59 +105,59 @@ print_without_indiv <- function(){
   
   #pFlp
   
-  list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,"pFlp"))]      ,
+  grob_list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,"pFlp"))]      ,
   genotype_group$weight_plot[which(str_detect(genotype_group$group,"pFlp"))]    ,
   genotype_group$s_rotarod_plot[which(str_detect(genotype_group$group,"pFlp"))] ,
   genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,"pFlp"))] ,
   genotype_group$condition_plot[which(str_detect(genotype_group$group,"pFlp"))])
   
-  ggsave(filename = "PDFs/pFlp.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
-         width = 7, height = 7)
+  suppressWarnings(ggsave(filename = "PDFs/pFlp.pdf", plot = marrangeGrob(grobs = grob_list, nrow = 1, ncol = 1),
+         width = 7, height = 7))
   
   #genotype to be graphed today
   
-  list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]      ,
+  grob_list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]      ,
   genotype_group$weight_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]    ,
   genotype_group$s_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
   genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
   genotype_group$condition_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]) 
   
-  ggsave(filename = filename_of_the_day, plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
-         width = 7, height = 7)
+  suppressWarnings(ggsave(filename = filename_of_the_day, plot = marrangeGrob(grobs = grob_list, nrow = 1, ncol = 1),
+         width = 7, height = 7))
   
   
   #SOD1m
   
-  list <- c(sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('grip_plot')      ,
+  grob_list <- c(sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('grip_plot')      ,
   sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('weight_plot')    ,
   sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
   sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('t_rotarod_plot') ,
   sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('condition_plot'))
   
-  ggsave(filename = "PDFs/mutant SOD1.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
-         width = 7, height = 7)
+  suppressWarnings(ggsave(filename = "PDFs/mutant SOD1.pdf", plot = marrangeGrob(grobs = grob_list, nrow = 1, ncol = 1),
+         width = 7, height = 7))
   
   #SOD1wt
   
-  list <- c(sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('grip_plot')      ,
+  grob_list <- c(sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('grip_plot')      ,
   sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('weight_plot')    ,
   sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
   sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('t_rotarod_plot') ,
   sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('condition_plot'))
   
-  ggsave(filename = "PDFs/wildtype SOD1.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
-         width = 7, height = 7)
+  suppressWarnings(ggsave(filename = "PDFs/wildtype SOD1.pdf", plot = marrangeGrob(grobs = grob_list, nrow = 1, ncol = 1),
+         width = 7, height = 7))
   
   #All mice
   
-  list <- c(all_group %>% pluck('grip_plot')      ,
+  grob_list <- c(all_group %>% pluck('grip_plot')      ,
   all_group %>% pluck('weight_plot')    ,
   all_group %>% pluck('s_rotarod_plot') ,
   all_group %>% pluck('t_rotarod_plot') ,
   all_group %>% pluck('condition_plot'))
   
-  ggsave(filename = "PDFs/all mice.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
-         width = 7, height = 7)
+  suppressWarnings(ggsave(filename = "PDFs/all mice.pdf", plot = marrangeGrob(grobs = grob_list, nrow = 1, ncol = 1),
+         width = 7, height = 7))
 
 }
 
@@ -166,14 +166,14 @@ print_without_indiv <- function(){
 print_custom_graphs <- function(){
   
   
-  list <- c(custom_graphs %>% pluck('grip_plot')      ,
+  grob_list <- c(custom_graphs %>% pluck('grip_plot')      ,
   custom_graphs %>% pluck('weight_plot')    ,
   custom_graphs %>% pluck('s_rotarod_plot') ,
   custom_graphs %>% pluck('t_rotarod_plot') ,
   custom_graphs %>% pluck('condition_plot'))
   
-  ggsave(filename = "PDFs/Custom Graphs.pdf", plot = marrangeGrob(grobs = list, nrow = 1, ncol = 1),
-         width = 7, height = 7)
+  suppressWarnings(ggsave(filename = "PDFs/Custom Graphs.pdf", plot = marrangeGrob(grobs = grob_list, nrow = 1, ncol = 1),
+         width = 7, height = 7))
   
   
 }
