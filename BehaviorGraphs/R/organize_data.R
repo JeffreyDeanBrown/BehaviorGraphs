@@ -6,7 +6,6 @@ organize_data <- function(spreadsheet_name, ...) {
         clean_data(...) %>%                  # cleans up names, pulls weeks_to_keep, rowbinds sheets to one df
         average_data(...) %>%                # averages all weight and grip measurements for each week
         lookup_mouse_info()                  # pulls mouse number, cage, and genotype from mouse_lut
-        rm(mouse_lut, inherits=TRUE)
         return(.data)}
 
 
