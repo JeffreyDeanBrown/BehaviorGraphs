@@ -2,11 +2,21 @@
 
 # Mouse Behavior Graphs
 
+This project will print multiple graphs for various tests of mouse
+behavior. The main purpose of this code is to be re-usable, even when
+new data is added (whether that be new mice, or new genotypes). For
+publication quality graphs, it would be more appropriate to create a new
+file of code and render those specific graphs verbosely.
+
 This is the code used by BehaviorGraphs v2.0
 ([github](https://github.com/JeffreyDeanBrown/BehaviorGraphs))
 
-The use-case for this code is very narrow, at this point it is just for
-the author to practice.
+The use-case for this code is very narrow, at this point it’s really
+just for the author to practice.
+
+### example plot:
+
+![](graph_main_files/figure-commonmark/unnamed-chunk-1-1.png)
 
 ## setup
 
@@ -60,3 +70,5 @@ organize_data(spreadsheet_name = 'example_sheets/Behavior Data 01-08-24.xlsx') %
     generate_custom_graphs(genotypes_to_plot = c("pFlp Homo (Male)", "OSKO Homo wSOD1M (Female)"),
                            graph_to_preview = "grip_plot")
 ```
+
+![](graph_main_files/figure-commonmark/unnamed-chunk-5-1.png)
