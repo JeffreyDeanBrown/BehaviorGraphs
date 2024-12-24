@@ -1,27 +1,5 @@
-# plot_indiv Functions.R
-# version 1.2
-# last update 03-02-2024
-#
-# FUNCTIONS:  plot_individuals, plot_by_indiv
-# 
-# DEPENDS: (need to fill this out)
-# 
-# DESCRIPTION:
-#   These functions plot the graphs for individual mice. 
-# 
-#   plot_individuals is the place to customize the individual mouse graphs,
-#   while plot_by_indiv has all of the ggplot mechanisms used for each graph. 
-#   
-#   be careful when changing plot_by_indiv
 
-
-#-----------------------------------------------------------------------------------------------------------------
-
-plot_individuals <- function(.data, subtitle){                         #move stats to a layer and remove it from earlier functions!
-
-
-  
-  # edit theme_update parameters to change the style of the graphs
+plot_individuals <- function(.data, subtitle){
   
   theme_update(legend.title = element_blank(),
                plot.title = element_text(hjust = 0.5),
@@ -34,10 +12,6 @@ plot_individuals <- function(.data, subtitle){                         #move sta
   .data %<>% group_by(id, {{ subtitle }}, group, sod1_factor) %>% nest
   
   print("plotting weight for individual mice...")
-  
-  
-  # edit title_str, yaxis_str, y_lim, y_break, or plot_ratio here to edit the
-  # title, y-axis label, y-axis limit, y-axis ticks, or ratio of the graphs
   
   .data %<>% plot_by_indiv(new_column = 'weight_plot',
                                 subtitle = 'subtitle',
@@ -103,7 +77,8 @@ plot_individuals <- function(.data, subtitle){                         #move sta
 }
 
 
-#-------------------------------------------------------------------------------------------------------------------
+
+
 
 plot_by_indiv <- function(.data, new_column, subtitle, measured_val, title_str, yaxis_str, y_lim, y_break,
                           sd, plot_ratio, errbar_width = 0.3){
@@ -127,9 +102,4 @@ plot_by_indiv <- function(.data, new_column, subtitle, measured_val, title_str, 
   return(cbind(.data, y))
   
 }
-
-
-
-
-
 

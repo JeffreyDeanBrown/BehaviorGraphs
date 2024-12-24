@@ -1,20 +1,3 @@
-# Import Functions.R
-# version 1.2
-# last update 12-18-2024
-#
-# FUNCTIONS: organize_data, get_sheets, separate_lut, clean_data, average_data, lookup_mouse_info
-# 
-# DEPENDS: none
-#
-# VARIABLES: spreadsheet_name, lut_col_keep, rotarod_time, rotarod_speed, weeks_to_keep, week, weight_data,
-#            grip_data, kept_columns
-# 
-# DESCRIPTION:
-#   These functions mostly pertain to taking an excel workbook of mice data and 
-#   extracting the data.
-#   ***description is WIP***
-#   
-#--------------------------------------------------------------------------------------------------
 
 organize_data <- function(spreadsheet_name, ...) {
         print("Opening the Excel file...") 
@@ -27,7 +10,8 @@ organize_data <- function(spreadsheet_name, ...) {
         return(.data)}
 
 
-#--------------------------------------------------------------------------------------------------
+
+
 
 get_sheets <- function(spreadsheet_name) {
      .data <- sapply(          #apply function(x) to everything in the list x=getSheetNames(spreadsheet_name)

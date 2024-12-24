@@ -1,5 +1,4 @@
 
-#-------------------------------------------------------------------------------------------
 show_custom_options <- function(.data, measurements = c("grip_plot", "weight_plot", "s_rotarod_plot",
                                                     "t_rotarod_plot", "condition_plot"), ...){
     genotypes <- paste(unique(.data$genotype_sex), collapse = ", ")
@@ -8,7 +7,9 @@ show_custom_options <- function(.data, measurements = c("grip_plot", "weight_plo
     print(glue("THE GENOTYPES YOU CAN SELECT ARE:\n\n\t{genotypes} \n\nTHE GRAPHS YOU CAN PREVIEW ARE:\n\n\t{graphs}"))
 }
 
-#---------------------------------------------------------------------------------------------
+
+
+
 
 generate_custom_graphs <- function(.data, genotypes_to_plot,
                                    graph_to_preview = "weight_plot",
@@ -22,10 +23,9 @@ generate_custom_graphs <- function(.data, genotypes_to_plot,
     
     print(glue("Creating the graphs for {length(n_genes)} genotypes [{paste(n_genes, collapse = ', ')}],",
                " correct? [y/n] ({n_mice} mice total)"))
-    
     repeat {
       var = readline()
-    #yes, the setup is correct:
+      #yes, the setup is correct:
           if (var == "y") {
             print("making custom graphs...")
             custom_graphs     <<- custom_tibble %>% group_and_plot(graph_group = 'custom', # also graph_subtitle
@@ -46,9 +46,9 @@ generate_custom_graphs <- function(.data, genotypes_to_plot,
               else if (do.print == "n"){print("ok have a nice day");break}
               else {print("ERROR: please enter a 'y' or a 'n'")}
           }
-   #no, the user made a mistake:
+      #no, the user made a mistake:
           else if (var == "n") {print("Please run show_custom_options() and double check your genotypes_to_plot variable"); break}
-   #the user did not enter yes (y) or no (n)
+      #the user did not enter yes (y) or no (n)
           else {print("ERROR: please enter a 'y' or a 'n'")}
     }
 }
