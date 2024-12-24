@@ -2,4 +2,4 @@ Package: BehaviorGraphs
 Type: Package
 Title: Make Graphs of Mouse Behavior
 Version: 1.0.0.0
-Imports: openxlsx, dplyr, tidyverse, magrittr, glue, ggformula, vctrs, snakecase, gridExtra, devtools
+Imports: 
