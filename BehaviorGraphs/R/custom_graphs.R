@@ -18,6 +18,7 @@ generate_custom_graphs <- function(.data, genotypes_to_plot,
     custom_tibble <<- subset(.data, genotype_sex %in% genotypes_to_plot)
     n_mice <- unique(custom_tibble$id) %>% length
     n_genes <- unique(custom_tibble$genotype)
+    custom_tibble %<>% mutate(custom = "       ") # this will become the graph subtitle (i.e. no subtitle)
     
     print(glue("Creating the graphs for {length(n_genes)} genotypes [{paste(n_genes, collapse = ', ')}],",
                " correct? [y/n] ({n_mice} mice total)"))
@@ -27,14 +28,13 @@ generate_custom_graphs <- function(.data, genotypes_to_plot,
     #yes, the setup is correct:
           if (var == "y") {
             print("making custom graphs...")
-            custom_graphs     <- .data %>% group_and_plot(graph_group = 'all',    #remove all from label_the_data when you have cleaned this up
+            custom_graphs     <<- custom_tibble %>% group_and_plot(graph_group = 'custom', # also graph_subtitle
                                                            pdf_group = 'all', ...)
             print(glue(".\n.\n.\n.\n.\nDone! Now showing your selected preview graph ({graph_to_preview})",
                        "\n Do you want to print these graphs to a pdf?[y/n]\n\n"))
-            preview <- pluck(custom_graphs, graph_to_preview, 1)
-            grid.arrange(preview)
+            pluck(custom_graphs, graph_to_preview, 1) %>% grid.arrange()
+            
             do.print = readline()
-
               if (do.print == "y"){
                 printer(.data          = custom_graphs,
                         group_to_print = "all",
