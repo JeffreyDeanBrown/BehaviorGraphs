@@ -2,14 +2,14 @@
 # version 1.2.1
 # last update 03-02-2024
 #
-# FUNCTIONS: label_the_data, group_the_data, group_and_plot, plot_the_data, generate_custom_graphs,
+# FUNCTIONS: label_the_data, group_the_data, group_and_plot, plot_default_graphs, generate_custom_graphs,
 #            pull_the_data
 # 
 # DEPENDS: (need to fill this out)
 #   
 # DESCRIPTION:
 #   These functions take all of the functions from other source files and 
-#   "glue" them all together into one big happy function (plot_the_data)
+#   "glue" them all together into one big happy function (plot_default_graphs)
 #
 #   There isn't anything to really customize easily here, if you change any of
 #   this code you will likely need to change a lot of code in other source files
@@ -17,7 +17,7 @@
   
 #-----------------------------------------------------------------------------------------
 
-plot_the_data <- function(.data, ...){
+plot_default_graphs <- function(.data, ...){
   
       print("making graphs by genotype...")
       genotype_group <<- .data %>% group_and_plot(graph_group = "group_sex",

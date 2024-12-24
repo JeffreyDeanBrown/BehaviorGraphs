@@ -2,9 +2,9 @@
 # version 1.2
 # last update 03-02-2024
 #
-# FUNCTIONS: print_the_plots, print_without_indiv, print_custom_graphs
+# FUNCTIONS: print_default_plots, print_without_indiv, print_custom_graphs
 #
-# DEPENDS:  plot_the_data (creates the names for the nested lists of graphs)
+# DEPENDS:  plot_default_graphs (creates the names for the nested lists of graphs)
 #           plot_the_group and plot_individuals (name the plot columns)
 #           label_the_data (labels the "group" column)
 #           create_labels_cols (labels the "sod1_factor" column)
@@ -22,7 +22,7 @@
 
 
 
-print_the_plots <- function(measurements = c("grip_plot", "weight_plot", "s_rotarod_plot", "t_rotarod_plot", "condition_plot")){
+print_default_plots <- function(measurements = c("grip_plot", "weight_plot", "s_rotarod_plot", "t_rotarod_plot", "condition_plot")){
 
   print("Do you want to print individual mice plots? [y/n] (it will be slower)")
 

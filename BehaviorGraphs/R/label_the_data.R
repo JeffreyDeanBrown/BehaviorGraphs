@@ -21,15 +21,14 @@
 #---------------------------------------------------------------------------------------------------------------
 
 label_the_data <- function(.data, 
-                           indiv_subtitle = "Mouse \n {.data$number}, {.data$sex}, {.data$genotype}\n From cage: {.data$cage}")
+                           indiv_subtitle = "Mouse  #{.data$number}, {.data$sex}, {.data$genotype}\n From cage: {.data$cage}")
         {
         
         print("Creating custom labels...")
   
             .data %<>%
               mutate(group = str_replace(genotype, " wSOD1M",""),
-                     all   = "all", #this is used by plot_the_data and generate_custom_graphs 
-                     all2  = "all2",
+                     all   = "all", 
                      sex            = glue("{str_detect(id, 'M') %>%                     # id is labeled M/F
                                                 ifelse('Male','Female')}"),              # based on sex
                      sod1_factor    = str_detect(genotype, 'wSOD1M') %>%

@@ -84,10 +84,10 @@ plot_measurements <- function(.data, graph_subtitle){
 #---------------------------------------------------------------------------------------------------------------
 
 
-plotter_gg <- function(.data, new_column, graph_subtitle, measured_val, title_str,
+plotter_gg <- function(.nested_tibble, new_column, graph_subtitle, measured_val, title_str,
                        yaxis_str, y_lim, y_break, plot_ratio){
-  list1 <- pluck(.data, 'data')
-  list2 <- pluck(.data, graph_subtitle)
+  list1 <- pluck(.nested_tibble, 'data')
+  list2 <- pluck(.nested_tibble, graph_subtitle)
   
     plots <- map2(list1, list2, ~
     ggplot(data = .x, aes(x = week, y = {{ measured_val }}, color = genotype_lab, na.rm = TRUE)) + #:genotype_lab: genotype (n={n_distinct(number)})
@@ -100,7 +100,7 @@ plotter_gg <- function(.data, new_column, graph_subtitle, measured_val, title_st
    )
 
   plots %<>% tibble(.name_repair = ~c(new_column))
-  return(cbind(.data, plots))
+  return(cbind(.nested_tibble, plots))
 }
 
 #---------------------------------------------------------------------------------------------------------------
