@@ -67,6 +67,10 @@ rm(measurements, inherits = TRUE)
 # a pdf in PDFs/ named pdf_names
 printer <- function(.data, group_to_print, pdf_names){
 
+
+  # just do a for loop against c(1:length(group_to_print)), then index into group_to_print and pdf_names
+  # to avoid messing with map
+  
   map2(group_to_print, pdf_names, function(x,y){
        lister <- function(.database){
          subset(.database, subset = str_detect(look_up_vector, x), select = measurements) %>%
