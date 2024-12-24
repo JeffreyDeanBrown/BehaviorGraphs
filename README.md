@@ -10,18 +10,12 @@ behavior experiment and organize them in a way where we can create ggplots of th
 very unlikely that anyone (other than the person who requested help on this project) will find
 any use out of this code.
 
-However, I will still upload this here so I can get practice working with Git and organizing
-projects for github. 
+However, this project has been really useful for practicing organizing a project and working
+with git, so I will upload it to git and keep improving it.
 
-The code is very specific to the excel sheet format that the experimenter was using, and
-I really doubt anyone else will find it useful. However, if anyone wants to use it or has
-any questions, feel free.
+The use case for this is very, very limited.
 
 ## Installation
-
-The way the project is setup right now, the way to install and run this code is to download
-the *Behavior Data Main.qmd* file and run the code on that file. However, if you just want
-to install the package contents and use it yourself, use:
 
 ``` r
 # install the current verison on github
@@ -35,6 +29,11 @@ install_github(repo = 'https://github.com/JeffreyDeanBrown/BehaviorGraphs@versio
 
 ## Usage
 
-I plan on reformatting the code to make it more usable outside of the specific steps in 
-*Behavior Data Main.qmd*, but that hasn't happened yet. WIP
+There isn't currently any documentation for this project, but that is the next thing I am
+working on. Currently, the way to use this project is to download `graph_main.qmd` and 
+run that code. 
+
+Several of the functions called in `graph_main.qmd` are just wrappers for other functions
+with default values. It is not currently documented, but you can call these functions yourself
+and make your own graphs. 
 
