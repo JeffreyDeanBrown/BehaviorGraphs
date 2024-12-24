@@ -22,72 +22,66 @@
 
 
 
-print_the_plots <- function() {
+print_the_plots <- function(measurements = c("grip_plot", "weight_plot", "s_rotarod_plot", "t_rotarod_plot", "condition_plot")){
 
   print("Do you want to print individual mice plots? [y/n] (it will be slower)")
+
   repeat {
-    resp <<- readline()               #takes an input from the console
-    if (resp == "y"){break}
-    else if (resp == "n"){break}
+    want.indivs <- readline()
+    if (want.indivs == "y"){want.indivs = TRUE; break}
+    else if (want.indivs == "n"){want.indivs = FALSE; break}
     else{print("ERROR: please enter a 'y' or a 'n'")}
   }
-  measurements <<- c("grip_plot", "weight_plot", "s_rotarod_plot", "t_rotarod_plot", "condition_plot")
 
-  print("Printing graphs...")
+  
+  print("rendering graphs...(this will take a few seconds)")
   suppressWarnings(dir.create("PDFs"))
 
-  look_up_vector <<- genotype_group$group
-  printer(.data = genotype_group,
-          group_to_print = c("pFlp", genotype_of_the_day),
-          pdf_names     = c("pFlp.pdf", filename_of_the_day))
+  printer(.data          = genotype_group,
+          group_to_print = c("pFlp", genotype_of_the_day),      # group[i] will print with pdf_name[i]
+          pdf_names      = c("pFlp.pdf", filename_of_the_day),
+          lookup_vector  = genotype_group$group, # rows in lookup_vector which contain group_to_print will print
+          colnames       = measurements,         # columns in colnames will print
+          print.indivs   = want.indivs)
 
-  look_up_vector <<- sod1_group$sod1_factor
-  printer(.data = sod1_group,
+  printer(.data          = sod1_group,
           group_to_print = c("SOD1mut", "SOD1wt"),
-          pdf_names     = c("mutant SOD1.pdf", "wildtype SOD1.pdf"))
+          pdf_names      = c("mutant SOD1.pdf", "wildtype SOD1.pdf"),
+          lookup_vector  = sod1_group$sod1_factor,
+          colnames       = measurements,
+          print.indivs   = want.indivs)
 
-
-  look_up_vector <<- all_group$all
-  resp <<- "n" #don't print any indivs in all mice.pdf
-  printer(.data = all_group,
+  printer(.data          = all_group,
           group_to_print = "all",
-          pdf_names      = "all mice.pdf")
+          pdf_names      = "all mice.pdf",
+          lookup_vector  = all_group$all,
+          colnames       = measurements,
+          print.indivs   = FALSE)  # don't get too crazy now
 
-
-rm(resp, inherits = TRUE)
-rm(look_up_vector, inherits = TRUE)
-rm(measurements, inherits = TRUE)
+  print("Done!")
 }
 
 
-
-
-
-# within .data, everything in column look_up_vector with string group_to_print is printed to
-# a pdf in PDFs/ named pdf_names
-printer <- function(.data, group_to_print, pdf_names){
-
-
-  # just do a for loop against c(1:length(group_to_print)), then index into group_to_print and pdf_names
-  # to avoid messing with map
+# (...) = need to call colnames and lookup_vector
+printer <- function(.data, group_to_print, pdf_names, print.indivs, lookup_vector, colnames){
+  for (x in c(1:length(group_to_print))){
   
-  map2(group_to_print, pdf_names, function(x,y){
-       lister <- function(.database){
-         subset(.database, subset = str_detect(look_up_vector, x), select = measurements) %>%
-           unlist(recursive= FALSE, use.names = FALSE)
-       }
-       
-       plot_list <- lister(.data)
+    list_ <- subset(.data, subset = str_detect(lookup_vector, group_to_print[x]), select = colnames) %>%
+              unlist(recursive= FALSE, use.names = FALSE)
 
-       if(resp == "y"){
-       indiv_list <- lister(indiv_)
-       plot_list <- append(plot_list, indiv_list)
-       }
+    if(print.indivs){
+      indiv_lookup_vector <- deparse(substitute(lookup_vector)) %>%
+        sub('^.*\\$','indiv_\\$',.) %>% parse(text = .) %>% eval   # example: genotype_group$group ---> indiv_$group
 
-       suppressWarnings(pdf(glue("PDFs/{y}")))
-       lapply(plot_list, print)
-       dev.off()
+      ind_list <- subset(indiv_, subset = str_detect(indiv_lookup_vector, group_to_print[x]), select = colnames) %>%
+                    unlist(recursive= FALSE, use.names = FALSE)
+
+      list_ <- append(list_, ind_list)
     }
-  )
+
+      suppressWarnings(pdf(glue("PDFs/{pdf_names[x]}")))
+      lapply(list_, print)
+      dev.off()
+  }
 }
 
