@@ -89,17 +89,18 @@ plotter_gg <- function(.data, new_column, graph_subtitle, measured_val, title_st
   list1 <- pluck(.data, 'data')
   list2 <- pluck(.data, graph_subtitle)
   
-  mutate(
-   !!{{ new_column }} =  map2(list1, list2, ~
+    plots <- map2(list1, list2, ~
     ggplot(data = .x, aes(x = week, y = {{ measured_val }}, color = genotype_lab, na.rm = TRUE)) + #:genotype_lab: genotype (n={n_distinct(number)})
-    ggtitle(title = {{ title_str }}, subtitle =  glue("{.y}")) +
+    labs(title = title_str, subtitle =  glue("{.y}")) +
     geom_line(stat = 'summary', fun = 'mean', linewidth = 1, na.rm = TRUE) +
     geom_pointrange(stat = 'summary', fun.data = 'mean_cl_boot', linewidth = 0.7, na.rm = TRUE) +
     coord_fixed(ratio = {{ plot_ratio }}) +
     scale_y_continuous(name = {{ yaxis_str }}, limits = {{ y_lim }}, breaks = {{ y_break }}) +
     scale_x_continuous(name = "Age (weeks)", breaks = c(11:24))
-    )
-  ) 
+   )
+
+  plots %<>% tibble(.name_repair = ~c(new_column))
+  return(cbind(.data, plots))
 }
 
 #---------------------------------------------------------------------------------------------------------------

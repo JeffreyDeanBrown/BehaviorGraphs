@@ -106,7 +106,7 @@ plot_individuals <- function(.data, subtitle){                         #move sta
 #-------------------------------------------------------------------------------------------------------------------
 
 plot_by_indiv <- function(.data, new_column, subtitle, measured_val, title_str, yaxis_str, y_lim, y_break,
-                          sd, plot_ratio){
+                          sd, plot_ratio, errbar_width = 0.3){
   
   t1 <- pluck(.data, 'data')
   t2 <- pluck(.data, subtitle)
@@ -120,7 +120,7 @@ plot_by_indiv <- function(.data, new_column, subtitle, measured_val, title_str, 
       scale_y_continuous({{ yaxis_str }}, limits = {{ y_lim }}, breaks = {{ y_break }}) +
       scale_x_continuous("Age (weeks)", breaks = c(11:24)) + 
       geom_errorbar(aes(ymin = {{ measured_val }} - {{ sd }}, ymax = {{ measured_val }} + {{ sd }}),
-                    linewidth = 0.3, width = 0.2))
+                    linewidth = errbar_width, width = 0.2))
   
   y <- tibble(x, .name_repair = ~ c(new_column))
   

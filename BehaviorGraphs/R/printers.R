@@ -2,7 +2,7 @@
 # version 1.2
 # last update 03-02-2024
 #
-# FUNCTIONS: print_with_indiv, print_without_indiv, print_custom_graphs
+# FUNCTIONS: print_the_plots, print_without_indiv, print_custom_graphs
 #
 # DEPENDS:  plot_the_data (creates the names for the nested lists of graphs)
 #           plot_the_group and plot_individuals (name the plot columns)
@@ -19,151 +19,71 @@
 # changed unless you have are also making significant changes to code in other 
 # source files
 
-#----------------------------------------------------------------------------------
-print_with_indiv <- function() {
-  print("Printing graphs...")
-  dir.create("PDFs")
 
-measurements <- c("grip_plot", "weight_plot", "s_rotarod_plot", "t_rotarod_plot", "condition_plot")
 
-#genotype groups 
 
-group_to_print = c("pFlp", genotype_of_the_day)
-pdf_names     = c("pFlp.pdf", filename_of_the_day)
+print_the_plots <- function() {
 
-map2(group_to_print, pdf_names, ~
-       
-  lister <- function(.data, look_up_vector){
-    subset(.data, subset = str_detect(look_up_vector, .x), select = measurements) %>%
-    unlist(recursive= FALSE, use.names = FALSE)
+  print("Do you want to print individual mice plots? [y/n] (it will be slower)")
+  repeat {
+    resp <<- readline()               #takes an input from the console
+    if (resp == "y"){break}
+    else if (resp == "n"){break}
+    else{print("ERROR: please enter a 'y' or a 'n'")}
   }
+  measurements <<- c("grip_plot", "weight_plot", "s_rotarod_plot", "t_rotarod_plot", "condition_plot")
 
-  group_list <- genotype_group %>% lister(look_up_vector = genotype_group$group)
-  indiv_list <- indiv_         %>% lister(look_up_vector = indiv_$group)
+  print("Printing graphs...")
+  suppressWarnings(dir.create("PDFs"))
 
-  suppressWarnings(pdf(glue("PDFs/{.y}")))
-  append(group_list, indiv_list) %>% lapply(print)
-  dev.off()
-)
+  look_up_vector <<- genotype_group$group
+  printer(.data = genotype_group,
+          group_to_print = c("pFlp", genotype_of_the_day),
+          pdf_names     = c("pFlp.pdf", filename_of_the_day))
 
-#SOD1 groups
-# group_to_print = c("SOD1mut", "SOD1wt")
-# pdf_names     = c("mutant SOD1.pdf", "wildtype SOD1.pdf")
-# look_up_column = sod1_factor
-# .data = sod1_group
+  look_up_vector <<- sod1_group$sod1_factor
+  printer(.data = sod1_group,
+          group_to_print = c("SOD1mut", "SOD1wt"),
+          pdf_names     = c("mutant SOD1.pdf", "wildtype SOD1.pdf"))
 
-# within .data and indiv, everything in column look_up_column with string group_to_print is printed to
+
+  look_up_vector <<- all_group$all
+  resp <<- "n" #don't print any indivs in all mice.pdf
+  printer(.data = all_group,
+          group_to_print = "all",
+          pdf_names      = "all mice.pdf")
+
+
+rm(resp, inherits = TRUE)
+rm(look_up_vector, inherits = TRUE)
+rm(measurements, inherits = TRUE)
+}
+
+
+
+
+
+# within .data, everything in column look_up_vector with string group_to_print is printed to
 # a pdf in PDFs/ named pdf_names
-printer <- function(.data, groups_to_print, pdf_names, look_up_column){
+printer <- function(.data, group_to_print, pdf_names){
 
-  map2(group_to_print, pdf_names, ~
-       lister <- function(.database, look_up_column){
-         subset(.database, subset = str_detect(look_up_column, .x), select = measurements) %>%
+  map2(group_to_print, pdf_names, function(x,y){
+       lister <- function(.database){
+         subset(.database, subset = str_detect(look_up_vector, x), select = measurements) %>%
            unlist(recursive= FALSE, use.names = FALSE)
        }
        
-       group_list <- lister(.data)
+       plot_list <- lister(.data)
+
+       if(resp == "y"){
        indiv_list <- lister(indiv_)
-       
-       suppressWarnings(pdf(glue("PDFs/{.y}")))
-       append(group_list, indiv_list) %>% lapply(print)
+       plot_list <- append(plot_list, indiv_list)
+       }
+
+       suppressWarnings(pdf(glue("PDFs/{y}")))
+       lapply(plot_list, print)
        dev.off()
+    }
   )
-}
-
-
-
-
-#-----------------------------------------------------------------------------------------
-print_without_indiv <- function(){
-  #Export PDFs by genotype (or by sod1 group) followed by all individual mice graphs
-  print("Printing graphs...")
-  dir.create("PDFs")
-  
-  #pFlp
-  
-  plot_list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,"pFlp"))]      ,
-  genotype_group$weight_plot[which(str_detect(genotype_group$group,"pFlp"))]    ,
-  genotype_group$s_rotarod_plot[which(str_detect(genotype_group$group,"pFlp"))] ,
-  genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,"pFlp"))] ,
-  genotype_group$condition_plot[which(str_detect(genotype_group$group,"pFlp"))])
-  
-  suppressWarnings(pdf("PDFs/pFlp.pdf"))
-lapply(plot_list, print)
-dev.off()
-
-  
-  #genotype to be graphed today
-  
-  plot_list <- c(genotype_group$grip_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]      ,
-  genotype_group$weight_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]    ,
-  genotype_group$s_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
-  genotype_group$t_rotarod_plot[which(str_detect(genotype_group$group,genotype_of_the_day))] ,
-  genotype_group$condition_plot[which(str_detect(genotype_group$group,genotype_of_the_day))]) 
-  
-  suppressWarnings(pdf(filename_of_the_day))
-lapply(plot_list, print)
-dev.off()
-
-  
-  
-  #SOD1m
-  
-  plot_list <- c(sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('grip_plot')      ,
-  sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('weight_plot')    ,
-  sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('s_rotarod_plot') ,
-  sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('t_rotarod_plot') ,
-  sod1_group %>% subset(sod1_factor == 'SOD1mut') %>% pluck('condition_plot'))
-  
-  suppressWarnings(pdf("PDFs/mutant SOD1.pdf"))
-lapply(plot_list, print)
-dev.off()
-
-  
-  #SOD1wt
-  
-  plot_list <- c(sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('grip_plot')      ,
-  sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('weight_plot')    ,
-  sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('s_rotarod_plot') ,
-  sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('t_rotarod_plot') ,
-  sod1_group %>% subset(sod1_factor == 'SOD1wt') %>% pluck('condition_plot'))
-  
-  suppressWarnings(pdf("PDFs/wildtype SOD1.pdf"))
-lapply(plot_list, print)
-dev.off()
-
-  
-  #All mice
-  
-  plot_list <- c(all_group %>% pluck('grip_plot')      ,
-  all_group %>% pluck('weight_plot')    ,
-  all_group %>% pluck('s_rotarod_plot') ,
-  all_group %>% pluck('t_rotarod_plot') ,
-  all_group %>% pluck('condition_plot'))
-  
-  suppressWarnings(pdf("PDFs/all mice.pdf"))
-lapply(plot_list, print)
-dev.off()
-
-
-}
-
-#------------------------------------------------------------------------------------------------------
-
-print_custom_graphs <- function(){
-  
-  
-  plot_list <- c(custom_graphs %>% pluck('grip_plot')      ,
-  custom_graphs %>% pluck('weight_plot')    ,
-  custom_graphs %>% pluck('s_rotarod_plot') ,
-  custom_graphs %>% pluck('t_rotarod_plot') ,
-  custom_graphs %>% pluck('condition_plot'))
-  
-  suppressWarnings(pdf("PDFs/Custom Graphs.pdf"))
-lapply(plot_list, print)
-dev.off()
-
-  
-  
 }
 
