@@ -1,22 +1,16 @@
----
-Last-Updated: 12-24-2024
-Created: 02-12-2024
-format: gfm
-editor: source
-editor_options:
-chunk_output_type: console
----
+
 
 # Mouse Behavior Graphs
 
-This is the code used by BehaviorGraphs v2.0 ([github](https://github.com/JeffreyDeanBrown/BehaviorGraphs))
+This is the code used by BehaviorGraphs v2.0
+([github](https://github.com/JeffreyDeanBrown/BehaviorGraphs))
 
-The use-case for this code is very narrow, at this point it is just for the author to practice.
+The use-case for this code is very narrow, at this point it is just for
+the author to practice.
 
 ## setup
 
-```{r, message=FALSE, results='hide', eval=FALSE}
-
+``` r
 library(openxlsx) 
 library(tidyverse)
 options(dplyr.summarise.inform = FALSE)
@@ -36,17 +30,11 @@ library(BehaviorGraphs)
 # setwd("")
 
 print("Done with Setup")
-
 ```
-
-
-
-
 
 ## Create and print the default graphs
 
-```{r, message=FALSE, results='hide', eval=FALSE}
-
+``` r
 genotype_of_the_day <- "OSKO"        # either a string or a vector of strings
 filename_of_the_day <- "OSKO.pdf"    # you need one filename for each genotype
 
@@ -55,19 +43,14 @@ organize_data(spreadsheet_name = 'example_sheets/Behavior Data 01-08-24.xlsx') %
     plot_default_graphs()
 
 print_default_plots()
-
 ```
-
-
-
-
 
 ## Customize a set of graphs
 
-This essentially just subsets your data to a list of genotypes you are interested in
+This essentially just subsets your data to a list of genotypes you are
+interested in
 
-```{r, message=FALSE, results='hide', eval=FALSE}
-
+``` r
 organize_data(spreadsheet_name = 'example_sheets/Behavior Data 01-08-24.xlsx') %>%
   label_the_data() %>%
     show_custom_options() # prints your genotypes_to_plot and graph_to_preview options
@@ -76,5 +59,4 @@ organize_data(spreadsheet_name = 'example_sheets/Behavior Data 01-08-24.xlsx') %
   label_the_data() %>%
     generate_custom_graphs(genotypes_to_plot = c("pFlp Homo (Male)", "OSKO Homo wSOD1M (Female)"),
                            graph_to_preview = "grip_plot")
-
 ```

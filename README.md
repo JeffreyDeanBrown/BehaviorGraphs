@@ -13,7 +13,7 @@ any use out of this code.
 However, this project has been really useful for practicing organizing a project and working
 with git, so I will upload it to git and keep improving it.
 
-The use case for this is very, very limited.
+The use case for this is very, very limited. 
 
 ## Installation
 
@@ -31,7 +31,7 @@ install_github(repo = 'https://github.com/JeffreyDeanBrown/BehaviorGraphs@versio
 
 There isn't currently any documentation for this project, but that is the next thing I am
 working on. Currently, the way to use this project is to download `graph_main.qmd` and 
-run that code. 
+run that code (or read through it [here](graph_main.md)). 
 
 Several of the functions called in `graph_main.qmd` are just wrappers for other functions
 with default values. It is not currently documented, but you can call these functions yourself
