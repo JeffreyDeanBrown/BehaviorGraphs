@@ -109,26 +109,3 @@ organize_data(spreadsheet_name = 'example_sheets/Behavior Data 01-08-24.xlsx') %
                            graph_to_preview = "grip_plot")
 
 ```
-
-```{r, message=FALSE, results='hide', eval=TRUE, echo = FALSE}
-library(openxlsx) 
-library(tidyverse)
-options(dplyr.summarise.inform = FALSE)
-library(glue) 
-library(ggformula) 
-library(vctrs) 
-library(snakecase) 
-library(gridExtra)
-library(devtools)
-library(Hmisc)
-library(magrittr)
-install_github(repo = 'https://github.com/JeffreyDeanBrown/BehaviorGraphs',
-               subdir = "BehaviorGraphs")
-library(BehaviorGraphs)
-
-organize_data(spreadsheet_name = 'example_sheets/Behavior Data 01-08-24.xlsx') %>%
-  label_the_data() %>%
-    plot_default_graphs()
-
-genotype_group %>% subset(subset = genotype_group$group_sex == 'pFlp Hetero (Female)', select = grip_plot) %>% as.list
-```
